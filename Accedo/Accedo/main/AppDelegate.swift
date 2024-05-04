@@ -10,28 +10,12 @@ final class AppDelegate: AppDelegateType {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        _ = appDelegate.application?(application, didFinishLaunchingWithOptions: launchOptions)
-        return true
-    }
+        if let didFinish = appDelegate.application?(application, didFinishLaunchingWithOptions: launchOptions) {
+            return didFinish
+        }
 
-    func application(
-        _ application: UIApplication,
-        open url: URL,
-        options: [UIApplication.OpenURLOptionsKey: Any]
-    ) -> Bool {
-        _ = appDelegate.application?(application, open: url, options: options)
-        return true
-    }
-
-    func application(
-        _ application: UIApplication,
-        performActionFor shortcutItem: UIApplicationShortcutItem,
-        completionHandler: @escaping (Bool) -> Void
-    ) {
-        appDelegate.application?(
-            application,
-            performActionFor: shortcutItem,
-            completionHandler: completionHandler
+        preconditionFailure(
+            "One or many application configuration(s) was failed to launch sequence successfully."
         )
     }
 
