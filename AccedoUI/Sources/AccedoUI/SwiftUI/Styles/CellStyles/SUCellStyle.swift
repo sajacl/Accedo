@@ -10,7 +10,7 @@ public protocol SUCellStyle {
 
 @available(iOS 13.0, *)
 extension SU {
-    public struct DefaultCardStyle: SUCellStyle {
+    public struct DefaultCellStyle: SUCellStyle {
         public init() {}
         
         public func makeBody(configuration: Configuration) -> some View {

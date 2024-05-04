@@ -10,7 +10,7 @@ extension SU {
         /// Cell display style.
         let style: Style
 
-        public init(title: String, cellStyle: Style = SU.DefaultCardStyle()) {
+        public init(title: String, cellStyle: Style = SU.DefaultCellStyle()) {
             self.title = title
             self.style = cellStyle
         }

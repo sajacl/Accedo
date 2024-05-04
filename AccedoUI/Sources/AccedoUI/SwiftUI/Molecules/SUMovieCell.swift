@@ -13,7 +13,7 @@ extension SU {
         /// Cell display style.
         let style: Style
 
-        public init(name: String, imageURL: URL?, cellStyle: Style = SU.DefaultCardStyle()) {
+        public init(name: String, imageURL: URL?, cellStyle: Style = SU.DefaultCellStyle()) {
             self.name = name
             self.imageURL = imageURL
             self.style = cellStyle
