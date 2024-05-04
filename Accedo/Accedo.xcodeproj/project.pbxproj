@@ -32,8 +32,6 @@
 		34E8827E2BE64364002D727F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		34E882842BE64364002D727F /* AccedoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AccedoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		34E882882BE64364002D727F /* AccedoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccedoTests.swift; sourceTree = "<group>"; };
-		34E882922BE64364002D727F /* AccedoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccedoUITests.swift; sourceTree = "<group>"; };
-		34E882942BE64364002D727F /* AccedoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccedoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +57,6 @@
 			children = (
 				34E882762BE64363002D727F /* Accedo */,
 				34E882872BE64364002D727F /* AccedoTests */,
-				34E882912BE64364002D727F /* AccedoUITests */,
 				34E882752BE64363002D727F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -98,15 +95,6 @@
 				34E882882BE64364002D727F /* AccedoTests.swift */,
 			);
 			path = AccedoTests;
-			sourceTree = "<group>";
-		};
-		34E882912BE64364002D727F /* AccedoUITests */ = {
-			isa = PBXGroup;
-			children = (
-				34E882922BE64364002D727F /* AccedoUITests.swift */,
-				34E882942BE64364002D727F /* AccedoUITestsLaunchTests.swift */,
-			);
-			path = AccedoUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
