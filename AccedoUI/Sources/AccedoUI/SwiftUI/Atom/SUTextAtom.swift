@@ -27,5 +27,5 @@ extension SU {
 
 @available(iOS 13.0, *)
 #Preview {
-    SU.SUIconAtom(.appTitleIcon)
+    SU.TextAtom(.appTitle)
 }

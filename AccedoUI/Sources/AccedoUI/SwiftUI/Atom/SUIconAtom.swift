@@ -2,7 +2,7 @@ import SwiftUI
 
 @available(iOS 13.0, *)
 extension SU {
-    struct SUIconAtom: View {
+    struct IconAtom: View {
         let icon: Icon
         let preferredSize: CGFloat?
         let renderingMode: Image.TemplateRenderingMode
@@ -39,5 +39,5 @@ extension SU {
 
 @available(iOS 13.0, *)
 #Preview {
-    SU.SUIconAtom(.appTitleIcon)
+    SU.IconAtom(.appTitleIcon)
 }

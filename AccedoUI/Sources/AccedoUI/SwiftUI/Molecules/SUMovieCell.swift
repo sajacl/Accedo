@@ -25,7 +25,7 @@ extension SU {
                     TextAtom(name)
                 },
                 image: {
-                    Image("icon_ApplicationTitle")
+                    IconAtom(.appTitleIcon, renderingMode: .original)
                 }
             )
 

@@ -4,19 +4,20 @@ import SwiftUI
 @available(iOS 13.0, *)
 extension SU {
     public struct CellListStyle: SUCellStyle {
+        public init() {}
+
         public func makeBody(configuration: Configuration) -> some View {
             HStack {
-                configuration.image.flatMap { image in
-                    GeometryReader { proxy in
-                        image
-                            .frame(width: proxy.size.width / 4, height: proxy.size.height - 8)
-                    }
-                }
-                
+                configuration
+                    .image
+                    .frame(maxWidth: 60)
+
                 configuration
                     .label
                     .multilineTextAlignment(.leading)
             }
+            .frame(minHeight: 24)
+            .frame(maxHeight: 60)
         }
     }
 }
@@ -24,22 +25,23 @@ extension SU {
 @available(iOS 13.0, *)
 extension SU {
     public struct CellGridStyle: SUCellStyle {
+        public init() {}
+        
         public func makeBody(configuration: Configuration) -> some View {
             VStack {
                 configuration
                     .image
-                    .flatMap { image in
-                        GeometryReader { proxy in
-                            image
-                                .frame(width: proxy.size.width - 14)
-                        }
-                    }
+                    .background(Color.yellow)
 
                 configuration
                     .label
                     .multilineTextAlignment(.center)
                     .frame(height: 24)
+                    .background(Color.blue)
             }
+            .frame(minWidth: 60, minHeight: 60)
+            .frame(maxWidth: 120, maxHeight: 120)
+            .background(Color.red)
         }
     }
 }
