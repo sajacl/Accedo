@@ -3,27 +3,42 @@ import SwiftUI
 
 @available(iOS 13.0, *)
 extension SU {
-    public struct SUMovieCell: View {
+    public struct MovieCell<Style: SUCellStyle>: View {
         /// Movie name.
         let name: String
         
         /// Movie image url.
         let imageURL: URL?
+        
+        /// Cell display style.
+        let style: Style
 
-        public init(name: String, imageURL: URL?) {
+        public init(name: String, imageURL: URL?, cellStyle: Style = SU.DefaultCardStyle()) {
             self.name = name
             self.imageURL = imageURL
+            self.style = cellStyle
         }
 
         public var body: some View {
-            HStack {
-                
-            }
+            let configuration = SUCellStyleConfiguration(
+                label: {
+                    TextAtom(name)
+                },
+                image: {
+                    Image("icon_ApplicationTitle")
+                }
+            )
+
+            style.makeBody(configuration: configuration)
         }
     }
 }
 
 @available(iOS 13.0, *)
 #Preview {
-    SU.SUMovieCell(name: "Batman", imageURL: URL(string: "www.google.com"))
+    SU.MovieCell(
+        name: "Batman",
+        imageURL: URL(string: "www.google.com"),
+        cellStyle: SU.CellListStyle()
+    )
 }
