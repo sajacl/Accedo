@@ -12,6 +12,10 @@
 		34E8827C2BE64364002D727F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34E8827B2BE64364002D727F /* Assets.xcassets */; };
 		34E8827F2BE64364002D727F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34E8827E2BE64364002D727F /* Preview Assets.xcassets */; };
 		34E882892BE64364002D727F /* AccedoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E882882BE64364002D727F /* AccedoTests.swift */; };
+		34E882A72BE64759002D727F /* AccedoLogging in Frameworks */ = {isa = PBXBuildFile; productRef = 34E882A62BE64759002D727F /* AccedoLogging */; };
+		34E882A92BE64759002D727F /* AccedoREST in Frameworks */ = {isa = PBXBuildFile; productRef = 34E882A82BE64759002D727F /* AccedoREST */; };
+		34E882AB2BE64759002D727F /* AccedoTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 34E882AA2BE64759002D727F /* AccedoTypes */; };
+		34E882AD2BE64759002D727F /* AccedoUI in Frameworks */ = {isa = PBXBuildFile; productRef = 34E882AC2BE64759002D727F /* AccedoUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +47,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34E882AB2BE64759002D727F /* AccedoTypes in Frameworks */,
+				34E882AD2BE64759002D727F /* AccedoUI in Frameworks */,
+				34E882A72BE64759002D727F /* AccedoLogging in Frameworks */,
+				34E882A92BE64759002D727F /* AccedoREST in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +74,7 @@
 				34E882762BE64363002D727F /* Accedo */,
 				34E882872BE64364002D727F /* AccedoTests */,
 				34E882752BE64363002D727F /* Products */,
+				34E882A52BE64759002D727F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +114,13 @@
 			path = AccedoTests;
 			sourceTree = "<group>";
 		};
+		34E882A52BE64759002D727F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -121,6 +137,12 @@
 			dependencies = (
 			);
 			name = Accedo;
+			packageProductDependencies = (
+				34E882A62BE64759002D727F /* AccedoLogging */,
+				34E882A82BE64759002D727F /* AccedoREST */,
+				34E882AA2BE64759002D727F /* AccedoTypes */,
+				34E882AC2BE64759002D727F /* AccedoUI */,
+			);
 			productName = Accedo;
 			productReference = 34E882742BE64363002D727F /* Accedo.app */;
 			productType = "com.apple.product-type.application";
@@ -473,6 +495,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		34E882A62BE64759002D727F /* AccedoLogging */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AccedoLogging;
+		};
+		34E882A82BE64759002D727F /* AccedoREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AccedoREST;
+		};
+		34E882AA2BE64759002D727F /* AccedoTypes */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AccedoTypes;
+		};
+		34E882AC2BE64759002D727F /* AccedoUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AccedoUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 34E8826C2BE64363002D727F /* Project object */;
 }
