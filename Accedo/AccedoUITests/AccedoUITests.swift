@@ -1,10 +1,3 @@
-//
-//  AccedoUITests.swift
-//  AccedoUITests
-//
-//  Created by Sajad Vishkai on 2024-05-04.
-//
-
 import XCTest
 
 final class AccedoUITests: XCTestCase {

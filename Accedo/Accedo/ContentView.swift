@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  Accedo
-//
-//  Created by Sajad Vishkai on 2024-05-04.
-//
-
 import SwiftUI
 
 struct ContentView: View {
