@@ -34,6 +34,7 @@
 		34E882882BE64364002D727F /* AccedoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccedoTests.swift; sourceTree = "<group>"; };
 		34E882A12BE645A8002D727F /* AccedoUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AccedoUI; path = ../AccedoUI; sourceTree = "<group>"; };
 		34E882A22BE6462C002D727F /* AccedoREST */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AccedoREST; path = ../AccedoREST; sourceTree = "<group>"; };
+		34E882A32BE64683002D727F /* AccedoTypes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AccedoTypes; path = ../AccedoTypes; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +58,7 @@
 		34E8826B2BE64363002D727F = {
 			isa = PBXGroup;
 			children = (
+				34E882A32BE64683002D727F /* AccedoTypes */,
 				34E882A22BE6462C002D727F /* AccedoREST */,
 				34E882A12BE645A8002D727F /* AccedoUI */,
 				34E882762BE64363002D727F /* Accedo */,
