@@ -1,2 +1,6 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
+/// Namespace that stands for `SwiftUI`.
+@available(iOS 13.0, *)
+public enum SU {}
+
+/// Namespace that stands for NextStep's `UIKit`.
+public enum NS {}
