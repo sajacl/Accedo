@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "AccedoUI",
+    defaultLocalization: "en",
     products: [
         .library(
             name: "AccedoUI",
@@ -13,7 +14,10 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "AccedoUI"
+            name: "AccedoUI",
+            resources: [
+                .process("Resources")
+            ]
         ),
         .testTarget(
             name: "AccedoUITests",
