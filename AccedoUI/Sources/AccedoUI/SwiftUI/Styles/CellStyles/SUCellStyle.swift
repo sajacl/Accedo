@@ -9,12 +9,16 @@ public protocol SUCellStyle {
 }
 
 @available(iOS 13.0, *)
-public struct DefaultCardStyle: SUCellStyle {
-    public func makeBody(configuration: Configuration) -> some View {
-        #if os(iOS)
-            return SU.CellListStyle().makeBody(configuration: configuration)
-        #else
-            return SU.CellGridStyle().makeBody(configuration: configuration)
-        #endif
+extension SU {
+    public struct DefaultCardStyle: SUCellStyle {
+        public init() {}
+        
+        public func makeBody(configuration: Configuration) -> some View {
+            #if os(iOS)
+                return SU.CellListStyle().makeBody(configuration: configuration)
+            #else
+                return SU.CellGridStyle().makeBody(configuration: configuration)
+            #endif
+        }
     }
 }
