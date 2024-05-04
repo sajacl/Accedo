@@ -9,8 +9,8 @@ public protocol SUCellStyle {
 }
 
 @available(iOS 13.0, *)
-struct DefaultCardStyle: SUCellStyle {
-    func makeBody(configuration: Configuration) -> some View {
+public struct DefaultCardStyle: SUCellStyle {
+    public func makeBody(configuration: Configuration) -> some View {
         #if os(iOS)
             return SU.CellListStyle().makeBody(configuration: configuration)
         #else
