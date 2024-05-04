@@ -3,21 +3,31 @@ import SwiftUI
 
 @available(iOS 13.0, *)
 extension SU {
-    public struct SUGenreCell: View {
+    public struct GenreCell<Style: SUCellStyle>: View {
         /// Genre title.
         let title: String
 
-        public init(title: String) {
+        /// Cell display style.
+        let style: Style
+
+        public init(title: String, cellStyle: Style = SU.DefaultCardStyle()) {
             self.title = title
+            self.style = cellStyle
         }
 
         public var body: some View {
-            TextAtom(title)
+            let configuration = SUCellStyleConfiguration(
+                label: {
+                    TextAtom(title)
+                }
+            )
+
+            style.makeBody(configuration: configuration)
         }
     }
 }
 
 @available(iOS 13.0, *)
 #Preview {
-    SU.SUGenreCell(title: "Action")
+    SU.GenreCell(title: "Action")
 }
