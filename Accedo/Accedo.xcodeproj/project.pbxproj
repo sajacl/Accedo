@@ -19,6 +19,8 @@
 		34E882AF2BE65080002D727F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E882AE2BE65080002D727F /* AppDelegate.swift */; };
 		34E882B22BE650C6002D727F /* AppDelegateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E882B12BE650C6002D727F /* AppDelegateFactory.swift */; };
 		34E882B42BE650E0002D727F /* CompositeAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E882B32BE650E0002D727F /* CompositeAppDelegate.swift */; };
+		34E882B72BE662DA002D727F /* UIKitAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E882B62BE662DA002D727F /* UIKitAppDelegate.swift */; };
+		34E882BB2BE662F8002D727F /* SwiftUIAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E882BA2BE662F8002D727F /* SwiftUIAppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,8 @@
 		34E882AE2BE65080002D727F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34E882B12BE650C6002D727F /* AppDelegateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateFactory.swift; sourceTree = "<group>"; };
 		34E882B32BE650E0002D727F /* CompositeAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeAppDelegate.swift; sourceTree = "<group>"; };
+		34E882B62BE662DA002D727F /* UIKitAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitAppDelegate.swift; sourceTree = "<group>"; };
+		34E882BA2BE662F8002D727F /* SwiftUIAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIAppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +134,8 @@
 		34E882B02BE650B1002D727F /* AppDelegateComponents */ = {
 			isa = PBXGroup;
 			children = (
+				34E882B92BE662EB002D727F /* SwiftUI */,
+				34E882B82BE662E5002D727F /* UIKit */,
 				34E882B12BE650C6002D727F /* AppDelegateFactory.swift */,
 				34E882B32BE650E0002D727F /* CompositeAppDelegate.swift */,
 			);
@@ -144,6 +150,22 @@
 				34E882B02BE650B1002D727F /* AppDelegateComponents */,
 			);
 			path = main;
+			sourceTree = "<group>";
+		};
+		34E882B82BE662E5002D727F /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				34E882B62BE662DA002D727F /* UIKitAppDelegate.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		34E882B92BE662EB002D727F /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				34E882BA2BE662F8002D727F /* SwiftUIAppDelegate.swift */,
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +278,8 @@
 				34E882B22BE650C6002D727F /* AppDelegateFactory.swift in Sources */,
 				34E882AF2BE65080002D727F /* AppDelegate.swift in Sources */,
 				34E882B42BE650E0002D727F /* CompositeAppDelegate.swift in Sources */,
+				34E882BB2BE662F8002D727F /* SwiftUIAppDelegate.swift in Sources */,
+				34E882B72BE662DA002D727F /* UIKitAppDelegate.swift in Sources */,
 				34E882782BE64363002D727F /* AccedoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
