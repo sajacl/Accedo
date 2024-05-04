@@ -2,12 +2,12 @@ import SwiftUI
 
 @available(iOS 13.0, *)
 extension SU {
-    public struct SUIconAtom: View {
+    struct SUIconAtom: View {
         let icon: Icon
         let preferredSize: CGFloat?
         let renderingMode: Image.TemplateRenderingMode
 
-        public init(
+        init(
             _ icon: Icon,
             preferredSize: CGFloat? = 24,
             renderingMode: Image.TemplateRenderingMode = .template
@@ -17,7 +17,7 @@ extension SU {
             self.renderingMode = renderingMode
         }
 
-        public var body: some View {
+        var body: some View {
             Image(icon.assetName, bundle: .module)
                 .renderingMode(renderingMode)
                 .resizable()
