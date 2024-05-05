@@ -19,6 +19,6 @@ final class UIKitAppDelegate: AppDelegateType {
     }
 
     private func createMainViewController() -> UIViewController {
-        GenreViewController()
+        GenreWireframe.create(with: ProcessInfo.processInfo.environment["api_key"])
     }
 }
