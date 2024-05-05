@@ -3,7 +3,15 @@ import AccedoDB
 import struct AccedoREST.GenreAPIResponse
 import struct AccedoREST.GenreDecodableModel
 
-final class GenreRepository {
+protocol GenreRepositoryInterface {
+    @DatabaseActor
+    func getMovies() throws -> [Genre]
+
+    @DatabaseActor
+    func upsertMovies(_ decodedGenres: [GenreDecodableModel]) throws
+}
+
+final class GenreRepository: GenreRepositoryInterface {
     @DatabaseActor
     private let cache: Cache<Int, Genre> = Cache(name: "GenreCache")
 
@@ -23,14 +31,14 @@ final class GenreRepository {
             cache.upsert(genre, forKey: genre.id)
         }
     }
+}
 
-    public struct Genre: Hashable, Identifiable {
-        public let id: Int
-        public let name: String
+struct Genre: Hashable, Identifiable {
+    let id: Int
+    let name: String
 
-        init(from decodableModel: GenreDecodableModel) {
-            id = decodableModel.id
-            name = decodableModel.name ?? "-Empty name-"
-        }
+    fileprivate init(from decodableModel: GenreDecodableModel) {
+        id = decodableModel.id
+        name = decodableModel.name ?? "-Empty name-"
     }
 }
