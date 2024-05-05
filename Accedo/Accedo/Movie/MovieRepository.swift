@@ -3,6 +3,9 @@ import AccedoDB
 import struct AccedoREST.MoviesAPIResponse
 import struct AccedoREST.MovieDecodableModel
 
+/// Cache store name.
+private let repositoryCacheName = "MovieCache"
+
 protocol MovieRepositoryInterface {
     @DatabaseActor
     func getMovies() throws -> [Movie]
@@ -12,8 +15,33 @@ protocol MovieRepositoryInterface {
 }
 
 final class MovieRepository {
-    @DatabaseActor
-    private let cache: Cache<Int, Movie> = Cache(name: "MovieCache")
+    private let cache: Cache<Int, Movie>
+
+    init() {
+        cache = Self.tryToReadCacheFromStore()
+    }
+
+    private static func tryToReadCacheFromStore(
+        fileManager: FileManager = FileManager.default,
+        decoder: JSONDecoder = JSONDecoder()
+    ) -> Cache<Int, Movie> {
+        let folderURLs = fileManager.urls(
+            for: .cachesDirectory,
+            in: .userDomainMask
+        )
+
+        let fileURL = folderURLs[0].appendingPathComponent(repositoryCacheName + ".cache")
+
+        do {
+            let data = try Data(contentsOf: fileURL, options: .uncached)
+
+            let cacheBox = try decoder.decode(Cache<Int, Movie>.self, from: data)
+
+            return cacheBox
+        } catch {
+            return Cache(name: repositoryCacheName)
+        }
+    }
 
     @DatabaseActor
     func getMovies() throws -> [Movie] {
@@ -33,17 +61,18 @@ final class MovieRepository {
     }
 }
 
-public struct Movie: Hashable {
-    public let id: Int
-    public let adult: Bool?
-    public let backdropPath: String?
-    public let genreIDS: [Int]
-    public let originalLanguage, originalTitle, overview: String?
-    public let popularity: Double?
-    public let posterPath, releaseDate, title: String?
-    public let video: Bool?
-    public let voteAverage: Double?
-    public let voteCount: Int?
+struct Movie: Hashable, Identifiable, Codable {
+    let id: Int
+    let adult: Bool?
+    let backdropPath: String?
+    let genreIDS: [Int]
+    let originalLanguage, originalTitle, overview: String?
+    let popularity: Double?
+    let posterPath, releaseDate: String?
+    let title: String
+    let video: Bool?
+    let voteAverage: Double?
+    let voteCount: Int?
 
     fileprivate init(from decodableModel: MovieDecodableModel) {
         id = decodableModel.id
@@ -56,7 +85,7 @@ public struct Movie: Hashable {
         popularity = decodableModel.popularity
         posterPath = decodableModel.posterPath
         releaseDate = decodableModel.releaseDate
-        title = decodableModel.title
+        title = decodableModel.title ?? "-Empty title-"
         video = decodableModel.video
         voteAverage = decodableModel.voteAverage
         voteCount = decodableModel.voteCount
