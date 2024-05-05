@@ -3,16 +3,15 @@ import SwiftUI
 
 @available(iOS 13.0, *)
 extension SU {
-    public struct GenreCell<Style: SUCellStyle>: View {
+    public struct GenreCell: View {
         /// Genre title.
         let title: String
 
         /// Cell display style.
-        let style: Style
+        @Environment(\.cellStyle) private var style
 
-        public init(title: String, cellStyle: Style = SU.DefaultCellStyle()) {
+        public init(title: String) {
             self.title = title
-            self.style = cellStyle
         }
 
         public var body: some View {
