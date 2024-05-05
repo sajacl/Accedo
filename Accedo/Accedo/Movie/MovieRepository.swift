@@ -4,8 +4,10 @@ import struct AccedoREST.MoviesAPIResponse
 import struct AccedoREST.MovieDecodableModel
 
 protocol MovieRepositoryInterface {
+    @DatabaseActor
     func getMovies() throws -> [Movie]
 
+    @DatabaseActor
     func upsertMovies(_ decodedMovies: [MovieDecodableModel]) throws
 }
 
