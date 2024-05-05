@@ -1,7 +1,6 @@
 import Foundation
 import AccedoLogging
 
-@DatabaseActor
 public final class Cache<Key: Hashable, Value> {
     /// Cache name.
     private let name: String
@@ -45,6 +44,7 @@ public final class Cache<Key: Hashable, Value> {
         }
     }
     
+    @DatabaseActor
     /// Insert or update if available.
     /// - Warning: This method will skip existence check.
     public func upsert(_ value: Value, forKey key: Key) {
@@ -58,6 +58,7 @@ public final class Cache<Key: Hashable, Value> {
         logger.notice(metadata: name, message: "Added object for key \(key)")
     }
 
+    @DatabaseActor
     public func value(forKey key: Key) throws -> Value {
         guard let entry = _cache.object(forKey: WrappedKey(key)) else {
             logger.debug(metadata: name, message: "Attempt to access missing object with key \(key)")
@@ -77,12 +78,14 @@ public final class Cache<Key: Hashable, Value> {
         return entry.value
     }
 
+    @DatabaseActor
     public func allValues() throws -> [Value] {
         try keyTracker.keys.map { key in
             try value(forKey: key)
         }
     }
 
+    @DatabaseActor
     public func removeValue(forKey key: Key) {
         _cache.removeObject(forKey: WrappedKey(key))
     }
@@ -90,6 +93,7 @@ public final class Cache<Key: Hashable, Value> {
 
 // MARK: Subscript
 extension Cache {
+    @DatabaseActor
     subscript(key: Key) -> Value? {
         get { return try? value(forKey: key) }
         set {
@@ -107,6 +111,7 @@ extension Cache {
 
 // MARK: Codable interactions
 extension Cache: Codable where Key: Codable, Value: Codable {
+    @DatabaseActor
     convenience public init(from decoder: Decoder) throws {
         self.init(name: "Decoder init")
 
@@ -116,6 +121,7 @@ extension Cache: Codable where Key: Codable, Value: Codable {
         entries.forEach(insert)
     }
 
+    @DatabaseActor
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         
@@ -124,6 +130,7 @@ extension Cache: Codable where Key: Codable, Value: Codable {
 }
 
 private extension Cache {
+    @DatabaseActor
     func entry(forKey key: Key) throws -> Entry {
         guard let entry = _cache.object(forKey: WrappedKey(key)) else {
             logger.debug(metadata: name, message: "Attempt to access missing object with key \(key)")
@@ -142,6 +149,7 @@ private extension Cache {
         return entry
     }
 
+    @DatabaseActor
     func insert(_ entry: Entry) {
         _cache.setObject(entry, forKey: WrappedKey(entry.key))
 
