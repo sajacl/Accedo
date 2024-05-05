@@ -9,6 +9,13 @@ private let tag = "fetch-genre"
 public final class GenreNetworkProxy {
     private let authorizationProvider: RESTAuthorizationProvider
 
+    /// Serial queue for using operations and completion handler.
+    private lazy var networkOperationQueue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 1
+        return queue
+    }()
+
     public init(authorizationProvider: @autoclosure @escaping () throws -> REST.Authorization) {
         self.authorizationProvider = REST.AccessTokenProvider(accessToken: authorizationProvider)
     }
@@ -45,7 +52,9 @@ public final class GenreNetworkProxy {
         return try await networkOperation.start()
     }
 
-    public func fetchGenres(completionHandler: @escaping () -> Result<GenresDecodableModel, Error>) {
+    public func fetchGenres(
+        completionHandler: @escaping (Result<GenresDecodableModel, Error>) -> Void
+    ) {
         let requestHandler = REST.AnyRequestHandler { endpoint in
             let requestFactory = REST.RequestFactory.default(
                 with: self.authorizationProvider,
@@ -54,7 +63,8 @@ public final class GenreNetworkProxy {
 
             return try requestFactory.createRequest(
                 for: .get,
-                pathTemplate: REST.URLPathTemplate(stringLiteral: genreURLPath)
+                pathTemplate: "/3/genre/movie/list",
+                additionalQueryItems: [URLQueryItem(name: "query", value: "Action")]
             )
         }
 
@@ -63,14 +73,13 @@ public final class GenreNetworkProxy {
             with: REST.Coding.makeJSONDecoder()
         )
 
-//        let networkOperation = REST.SwiftConcurrencyNetworkDispatcher(
-//            name: tag + "-closure",
-//            requestHandler: requestHandler,
-//            responseHandler: responseHandler
-//        )
+        let fetchGenreNetworkOperation = REST.NetworkOperationDispatcher(
+            name: "hand-shake-test",
+            requestHandler: requestHandler,
+            responseHandler: responseHandler,
+            resultCompletionHandler: completionHandler
+        )
 
-//        let result = try await networkOperation.start()
-//
-//        let genres = try result.get()
+        networkOperationQueue.addOperation(fetchGenreNetworkOperation)
     }
 }
