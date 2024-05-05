@@ -99,10 +99,8 @@
 		341B632B2BE7E15F006038B1 /* Genre */ = {
 			isa = PBXGroup;
 			children = (
+				341B63492BE82F7F006038B1 /* SwiftUI */,
 				341B63442BE82494006038B1 /* UIKit */,
-				341B632D2BE7E185006038B1 /* GenreRepository.swift */,
-				341B63332BE7E53A006038B1 /* GenreViewModel.swift */,
-				341B63352BE7E8CD006038B1 /* GenreView.swift */,
 				341B63372BE7F3F3006038B1 /* GenreWireframe.swift */,
 			);
 			path = Genre;
@@ -135,6 +133,16 @@
 				341B63472BE8266F006038B1 /* GenreInteractor.swift */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		341B63492BE82F7F006038B1 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				341B632D2BE7E185006038B1 /* GenreRepository.swift */,
+				341B63332BE7E53A006038B1 /* GenreViewModel.swift */,
+				341B63352BE7E8CD006038B1 /* GenreView.swift */,
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 		34E8826B2BE64363002D727F = {
