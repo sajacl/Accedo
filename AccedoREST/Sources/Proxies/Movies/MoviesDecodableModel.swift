@@ -8,7 +8,7 @@ public struct MoviesAPIResponse: Codable {
 
     enum CodingKeys: String, CodingKey {
         case page
-        case movies
+        case movies = "results"
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }
