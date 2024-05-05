@@ -1,14 +1,14 @@
 import Foundation
 
-/// Genre list url path.
-private let genreURLPath = "/3/genre/movie/list"
+/// Movie list url path.
+private let movieURLPath = "/3/discover/movie"
 
 /// Tag that will be used for naming network operation.
-private let tag = "fetch-genre"
+private let tag = "fetch-movies"
 
-public final class GenreNetworkProxy: NetworkProxy {
+public final class MovieNetworkProxy: NetworkProxy {
     @available(iOS 13.0, *)
-    public func fetchGenres() async throws -> Result<GenresDecodableModel, Error> {
+    public func fetchMovies() async throws -> Result<MoviesAPIResponse, Error> {
         let requestHandler = REST.AnyRequestHandler { endpoint in
             let requestFactory = REST.RequestFactory.default(
                 with: self.authorizationProvider,
@@ -17,12 +17,12 @@ public final class GenreNetworkProxy: NetworkProxy {
 
             return try requestFactory.createRequest(
                 for: .get,
-                pathTemplate: REST.URLPathTemplate(stringLiteral: genreURLPath)
+                pathTemplate: REST.URLPathTemplate(stringLiteral: movieURLPath)
             )
         }
 
         let responseHandler = REST.defaultResponseHandler(
-            decoding: GenresDecodableModel.self,
+            decoding: MoviesAPIResponse.self,
             with: REST.Coding.makeJSONDecoder()
         )
 
@@ -35,8 +35,8 @@ public final class GenreNetworkProxy: NetworkProxy {
         return try await networkOperation.start()
     }
 
-    public func fetchGenres(
-        with completionHandler: @escaping (Result<GenresDecodableModel, Error>) -> Void
+    public func fetchMovies(
+        with completionHandler: @escaping (Result<MoviesAPIResponse, Error>) -> Void
     ) {
         let requestHandler = REST.AnyRequestHandler { endpoint in
             let requestFactory = REST.RequestFactory.default(
@@ -46,22 +46,22 @@ public final class GenreNetworkProxy: NetworkProxy {
 
             return try requestFactory.createRequest(
                 for: .get,
-                pathTemplate: REST.URLPathTemplate(stringLiteral: genreURLPath)
+                pathTemplate: REST.URLPathTemplate(stringLiteral: movieURLPath)
             )
         }
 
         let responseHandler = REST.defaultResponseHandler(
-            decoding: GenresDecodableModel.self,
+            decoding: MoviesAPIResponse.self,
             with: REST.Coding.makeJSONDecoder()
         )
 
-        let fetchGenresNetworkOperation = REST.NetworkOperationDispatcher(
+        let fetchMoviesNetworkOperation = REST.NetworkOperationDispatcher(
             name: tag + "-closure",
             requestHandler: requestHandler,
             responseHandler: responseHandler,
             resultCompletionHandler: completionHandler
         )
 
-        networkOperationQueue.addOperation(fetchGenresNetworkOperation)
+        networkOperationQueue.addOperation(fetchMoviesNetworkOperation)
     }
 }
