@@ -63,6 +63,8 @@ final class GenrePresenter {
     private func updateState(_ newState: State) {
         state = newState
 
-        view.stateUpdated(state)
+        DispatchQueue.main.async {
+            self.view.stateUpdated(self.state)
+        }
     }
 }
