@@ -4,14 +4,15 @@ import XCTest
 private let cacheName = "Test"
 
 final class AccedoDBSmokeTests: XCTestCase {
+    private let mockKey: Int = 1
+    
+    private let mockValue = "#VALUE#"
+
     @DatabaseActor
     func testWriteToCache() throws {
         let cache = Cache<Int, String>(name: cacheName)
 
-        let mockKey = 1
-        let mockValue = "Salam"
-
-        cache.insert(mockValue, forKey: mockKey)
+        cache.upsert(mockValue, forKey: mockKey)
 
         XCTAssertNotNil(try? cache.value(forKey: mockKey))
 
@@ -22,10 +23,7 @@ final class AccedoDBSmokeTests: XCTestCase {
     func testWriteCacheToFile() throws {
         let cache = Cache<Int, String>(name: cacheName)
 
-        let mockKey = 1
-        let mockValue = "Salam"
-
-        cache.insert(mockValue, forKey: mockKey)
+        cache.upsert(mockValue, forKey: mockKey)
 
         XCTAssertNotNil(try? cache.value(forKey: mockKey))
 
@@ -36,10 +34,7 @@ final class AccedoDBSmokeTests: XCTestCase {
     func testWriteCacheToFile_RawRetrieve() throws {
         let cache = Cache<Int, String>(name: cacheName)
 
-        let mockKey = 1
-        let mockValue = "Salam"
-
-        cache.insert(mockValue, forKey: mockKey)
+        cache.upsert(mockValue, forKey: mockKey)
 
         XCTAssertNotNil(try? cache.value(forKey: mockKey))
 
@@ -65,10 +60,7 @@ final class AccedoDBSmokeTests: XCTestCase {
     func testWriteCacheToFile_CodableRetrieve() throws {
         let cache = Cache<Int, String>(name: cacheName)
 
-        let mockKey = 1
-        let mockValue = "Salam"
-
-        cache.insert(mockValue, forKey: mockKey)
+        cache.upsert(mockValue, forKey: mockKey)
 
         XCTAssertNotNil(try? cache.value(forKey: mockKey))
 

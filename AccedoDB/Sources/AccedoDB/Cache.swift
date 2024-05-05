@@ -9,7 +9,7 @@ public final class Cache<Key: Hashable, Value> {
     /// Cache object.
     private let _cache = NSCache<WrappedKey, Entry>()
 
-    /// Date provider lazy loaded.
+    /// Date provider.
     private let dateProvider: () -> Date
     
     /// Entry expiration life time.
@@ -25,7 +25,7 @@ public final class Cache<Key: Hashable, Value> {
 
     public init(
         name: String,
-        dateProvider: @escaping () -> Date = Date.init,
+        dateProvider: @autoclosure @escaping () -> Date = Date.init(),
         entryLifetime: TimeInterval = 60 * 60 * 24,
         maximumEntryCount: UInt = 124,
         encoder: @escaping () -> JSONEncoder = JSONEncoder.init
@@ -44,8 +44,10 @@ public final class Cache<Key: Hashable, Value> {
             logger = CustomLogger.databaseLogger
         }
     }
-
-    public func insert(_ value: Value, forKey key: Key) {
+    
+    /// Insert or update if available.
+    /// - Warning: This method will skip existence check.
+    public func upsert(_ value: Value, forKey key: Key) {
         let expirationDate = dateProvider().addingTimeInterval(entryLifetime)
 
         keyTracker.keys.insert(key)
@@ -92,7 +94,7 @@ extension Cache {
                 return
             }
 
-            insert(value, forKey: key)
+            upsert(value, forKey: key)
         }
     }
 }
