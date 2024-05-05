@@ -3,20 +3,19 @@ import SwiftUI
 
 @available(iOS 13.0, *)
 extension SU {
-    public struct MovieCell<Style: SUCellStyle>: View {
+    public struct MovieCell: View {
         /// Movie name.
         let name: String
         
         /// Movie image url.
         let imageURL: URL?
-        
-        /// Cell display style.
-        let style: Style
 
-        public init(name: String, imageURL: URL?, cellStyle: Style = SU.DefaultCellStyle()) {
+        /// Cell display style.
+        @Environment(\.cellStyle) private var style
+
+        public init(name: String, imageURL: URL?) {
             self.name = name
             self.imageURL = imageURL
-            self.style = cellStyle
         }
 
         public var body: some View {
@@ -38,7 +37,6 @@ extension SU {
 #Preview {
     SU.MovieCell(
         name: "Batman",
-        imageURL: URL(string: "www.google.com"),
-        cellStyle: SU.CellListStyle()
+        imageURL: URL(string: "www.google.com")
     )
 }
