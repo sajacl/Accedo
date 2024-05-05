@@ -8,14 +8,16 @@ extension NS {
         public init(
             _ icon: Icon,
             preferredSize: CGFloat? = 24,
-            renderingMode: UIImage.RenderingMode = .alwaysTemplate
+            renderingMode: UIImage.RenderingMode = .alwaysTemplate,
+            isUsingAutoLayout: Bool = false
         ) {
             super.init(frame: .zero)
             
             let configurator = ImageViewConfigurator(
                 icon: icon,
                 preferredSize: preferredSize,
-                renderingMode: renderingMode
+                renderingMode: renderingMode,
+                isUsingAutoLayout: isUsingAutoLayout
             )
 
             configurator.configure(imageView: self)
@@ -26,20 +28,28 @@ extension NS {
         }
     }
 
-    struct ImageViewConfigurator {
+    fileprivate struct ImageViewConfigurator {
         let icon: Icon
         let preferredSize: CGFloat?
         let renderingMode: UIImage.RenderingMode
+        let isUsingAutoLayout: Bool
 
         @inlinable
         func configure(imageView: UIImageView) {
-            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.translatesAutoresizingMaskIntoConstraints = !isUsingAutoLayout
 
             if let preferredSize {
-                let widthConstraint = imageView.widthAnchor.constraint(equalToConstant: preferredSize)
-                let heightConstraint = imageView.heightAnchor.constraint(equalToConstant: preferredSize)
+                if isUsingAutoLayout {
+                    let widthConstraint = imageView.widthAnchor.constraint(equalToConstant: preferredSize)
+                    let heightConstraint = imageView.heightAnchor.constraint(equalToConstant: preferredSize)
 
-                NSLayoutConstraint.activate([widthConstraint, heightConstraint])
+                    NSLayoutConstraint.activate([widthConstraint, heightConstraint])
+                } else {
+                    imageView.frame = CGRect(
+                        origin: .zero,
+                        size: CGSize(width: preferredSize, height: preferredSize)
+                    )
+                }
             }
 
             let _image = UIImage(named: icon.assetName)?.withRenderingMode(renderingMode)
