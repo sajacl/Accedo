@@ -5,7 +5,7 @@ import AccedoUI
 struct GenreView: View {
     @StateObject private var viewModel: GenreViewModel
 
-    private let userInterfaceIdiom: UIUserInterfaceIdiom
+    @State private var userInterfaceIdiom: UIUserInterfaceIdiom
 
     public init(
         viewModel: GenreViewModel,
@@ -36,6 +36,15 @@ struct GenreView: View {
                     )
                 }
             )
+            .toolbar {
+                Button("Layout") {
+                    let newInterface: UIUserInterfaceIdiom = userInterfaceIdiom == .phone ? .pad: .phone
+
+                    withAnimation(.smooth) {
+                        userInterfaceIdiom = newInterface
+                    }
+                }
+            }
             .navigationDestination(for: Genre.self) { genre in
                 viewModel.createGenreDetail(for: genre)
             }
