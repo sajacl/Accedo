@@ -7,7 +7,19 @@ struct AccedoApp: App {
     
     var body: some Scene {
         WindowGroup {
-            GenreWireframe.create(with: ProcessInfo.processInfo.environment["api_key"])
+            if #available(iOS 16.0, *) {
+                NavigationStack {
+                    genreScreen
+                }
+            } else {
+                NavigationView {
+                    genreScreen
+                }
+            }
         }
+    }
+
+    private var genreScreen: some View {
+        GenreWireframe.create(with: ProcessInfo.processInfo.environment["api_key"])
     }
 }
