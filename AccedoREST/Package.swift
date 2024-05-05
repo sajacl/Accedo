@@ -11,9 +11,15 @@ let package = Package(
             targets: ["AccedoREST"]
         ),
     ],
+    dependencies: [
+        .package(path: "../AccedoLogging")
+    ],
     targets: [
         .target(
-            name: "AccedoREST"
+            name: "AccedoREST",
+            dependencies: [
+                .product(name: "AccedoLogging", package: "AccedoLogging")
+            ]
         ),
         .testTarget(
             name: "AccedoRESTTests",
