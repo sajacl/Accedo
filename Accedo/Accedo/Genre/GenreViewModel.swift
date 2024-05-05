@@ -12,6 +12,8 @@ public final class GenreViewModel: ObservableObject {
 
     @Published private(set) var isLoading = false
 
+    @Published var error: (Error)?
+
     init(
         networkProxy: any RESTGenreNetworkProxy,
         repository: any GenreRepositoryInterface
@@ -44,7 +46,7 @@ public final class GenreViewModel: ObservableObject {
 
             self.genres = genres
         } catch {
-            // Show error
+            self.error = error
         }
     }
 

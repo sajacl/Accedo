@@ -17,7 +17,26 @@ struct GenreView: View {
 
     var body: some View {
         listView
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    viewModel.error = URLError(.badURL)
+                }
+            }
             .onAppear(perform: viewModel.viewDidAppear)
+            .alert("Error", isPresented: $viewModel.error.isPresented, actions: {
+                viewModel.error.flatMap {
+                    Text($0.localizedDescription)
+                }
+
+                Button(
+                    action: {
+                        viewModel.error = nil
+                    },
+                    label: {
+                        Text("Ok")
+                    }
+                )
+            })
     }
 
     @ViewBuilder
