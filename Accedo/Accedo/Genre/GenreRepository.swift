@@ -3,7 +3,8 @@ import AccedoDB
 import struct AccedoREST.GenreAPIResponse
 import struct AccedoREST.GenreDecodableModel
 
-private let genreRepositoryCacheName = "GenreCache"
+/// Cache store name.
+private let repositoryCacheName = "GenreCache"
 
 protocol GenreRepositoryInterface {
     @DatabaseActor
@@ -29,7 +30,7 @@ final class GenreRepository: GenreRepositoryInterface {
             in: .userDomainMask
         )
 
-        let fileURL = folderURLs[0].appendingPathComponent(genreRepositoryCacheName + ".cache")
+        let fileURL = folderURLs[0].appendingPathComponent(repositoryCacheName + ".cache")
 
         do {
             let data = try Data(contentsOf: fileURL, options: .uncached)
@@ -38,7 +39,7 @@ final class GenreRepository: GenreRepositoryInterface {
 
             return cacheBox
         } catch {
-            return Cache(name: genreRepositoryCacheName)
+            return Cache(name: repositoryCacheName)
         }
     }
 
