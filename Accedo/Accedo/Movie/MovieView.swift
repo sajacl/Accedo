@@ -3,14 +3,18 @@ import SwiftUI
 import AccedoUI
 
 struct MovieView: View {
+    private let genreName: String
+
     @StateObject private var viewModel: MovieViewModel
 
     private let userInterfaceIdiom: UIUserInterfaceIdiom
 
     public init(
+        genreName: String,
         viewModel: MovieViewModel,
         userInterfaceIdiom: UIUserInterfaceIdiom = UIDevice.current.userInterfaceIdiom
     ) {
+        self.genreName = genreName
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.userInterfaceIdiom = userInterfaceIdiom
     }
@@ -36,6 +40,7 @@ struct MovieView: View {
                     )
                 }
             )
+            .navigationTitle(genreName)
     }
 
     @ViewBuilder
