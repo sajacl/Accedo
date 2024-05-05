@@ -2,9 +2,13 @@ import Foundation
 import AccedoREST
 
 final class GenreInteractor {
+    /// Object responsible for proxy network calls for fetching genres list.
     private let networkProxy: any RESTGenreNetworkProxy
+    
+    /// Object responsible for handle interactions between database and application.
     private let repository: any GenreRepositoryInterface
-
+    
+    /// Token of network request.
     private var requestToken: (any Cancellable)?
 
     init(networkProxy: any RESTGenreNetworkProxy, repository: any GenreRepositoryInterface) {
