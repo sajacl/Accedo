@@ -17,11 +17,6 @@ struct GenreView: View {
 
     var body: some View {
         mainView
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    viewModel.error = URLError(.badURL)
-                }
-            }
             .onAppear(perform: viewModel.viewDidAppear)
             .alert(
                 "Error",

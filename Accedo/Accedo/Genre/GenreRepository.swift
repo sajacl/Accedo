@@ -3,6 +3,8 @@ import AccedoDB
 import struct AccedoREST.GenreAPIResponse
 import struct AccedoREST.GenreDecodableModel
 
+private let genreRepositoryCacheName = "GenreCache"
+
 protocol GenreRepositoryInterface {
     @DatabaseActor
     func getGenres() throws -> [Genre]
@@ -12,8 +14,33 @@ protocol GenreRepositoryInterface {
 }
 
 final class GenreRepository: GenreRepositoryInterface {
-    @DatabaseActor
-    private let cache: Cache<Int, Genre> = Cache(name: "GenreCache")
+    private let cache: Cache<Int, Genre>
+
+    init() {
+        cache = Self.tryToReadCacheFromStore()
+    }
+
+    private static func tryToReadCacheFromStore(
+        fileManager: FileManager = FileManager.default,
+        decoder: JSONDecoder = JSONDecoder()
+    ) -> Cache<Int, Genre> {
+        let folderURLs = fileManager.urls(
+            for: .cachesDirectory,
+            in: .userDomainMask
+        )
+
+        let fileURL = folderURLs[0].appendingPathComponent(genreRepositoryCacheName + ".cache")
+
+        do {
+            let data = try Data(contentsOf: fileURL, options: .uncached)
+
+            let cacheBox = try decoder.decode(Cache<Int, Genre>.self, from: data)
+
+            return cacheBox
+        } catch {
+            return Cache(name: genreRepositoryCacheName)
+        }
+    }
 
     @DatabaseActor
     func getGenres() throws -> [Genre] {
@@ -30,10 +57,14 @@ final class GenreRepository: GenreRepositoryInterface {
         mappedGenres.forEach { genre in
             cache.upsert(genre, forKey: genre.id)
         }
+
+        Task.detached(priority: .background) { [weak self] in
+            try self?.cache.saveToDisk()
+        }
     }
 }
 
-struct Genre: Hashable, Identifiable {
+struct Genre: Hashable, Identifiable, Codable {
     let id: Int
     let name: String
 
