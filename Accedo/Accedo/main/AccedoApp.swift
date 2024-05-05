@@ -17,6 +17,7 @@ struct AccedoApp: App {
                 }
             }
         }
+        .environment(\.cellStyle, SU.AnyCellStyle(style: SU.DefaultCellStyle()))
     }
 
     private var genreScreen: some View {
