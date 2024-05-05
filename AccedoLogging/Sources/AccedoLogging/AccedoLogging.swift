@@ -41,17 +41,17 @@ extension OSLog {
 extension Logger: Logging {
     public func debug(metadata: String? = nil, message: @autoclosure () -> String) {
         let _message = message()
-        debug("\(_message)")
+        debug("\(formatLog(metadata: metadata, message: _message))")
     }
     
     public func notice(metadata: String? = nil, message: @autoclosure () -> String) {
         let _message = message()
-        notice("\(_message)")
+        notice("\(formatLog(metadata: metadata, message: _message))")
     }
     
     public func error(metadata: String? = nil, message: @autoclosure () -> String) {
         let _message = message()
-        log(level: .error, "\(_message)")
+        log(level: .error, "\(formatLog(metadata: metadata, message: _message))")
     }
 
     public func error(
@@ -59,8 +59,9 @@ extension Logger: Logging {
         error: some Error,
         message: @autoclosure () -> String
     ) {
-        let error = message()
-        log(level: .error, "\(error)")
+        let _message = "[Underlying error description: \(error.localizedDescription)] [Error message: \(message())]"
+        let formattedMessage = "\(formatLog(metadata: metadata, message: _message))"
+        log(level: .error, "\(formattedMessage)")
     }
 }
 
@@ -79,15 +80,15 @@ public struct CustomLogger: Logging {
     }
 
     public func debug(metadata: String? = nil, message: @autoclosure () -> String) {
-        dump("Debug", message())
+        dump("Debug", "\(formatLog(metadata: metadata, message: message()))")
     }
 
     public func notice(metadata: String? = nil, message: @autoclosure () -> String) {
-        dump("Info", message())
+        dump("Info", "\(formatLog(metadata: metadata, message: message()))")
     }
 
     public func error(metadata: String? = nil, message: @autoclosure () -> String) {
-        dump("Error", message())
+        dump("Error", "\(formatLog(metadata: metadata, message: message()))")
     }
 
     public func error(
@@ -96,10 +97,20 @@ public struct CustomLogger: Logging {
         message: @autoclosure () -> String
     ) {
         let _message = "[Underlying error description: \(error.localizedDescription)] [Error message: \(message())]"
-        dump("Error", _message)
+        dump("Error", "\(formatLog(metadata: metadata, message: _message))")
     }
 
     private func dump(_ arg: String,_ message: String) {
         logResolver("-[\(arg)] [\(category)] \(message)")
     }
+}
+
+fileprivate func formatLog(metadata: String? = nil, message: @autoclosure () -> String) -> String {
+    var string = ""
+
+    metadata.flatMap { string = "[\($0)] " }
+
+    string += message()
+
+    return string
 }
