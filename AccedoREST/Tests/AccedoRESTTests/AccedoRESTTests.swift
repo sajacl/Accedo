@@ -79,7 +79,9 @@ final class AccedoRESTTests: XCTestCase {
     func testFetchMovies() throws {
         let networkResultPromise = expectation(description: "Send a request to server and retrieve data.")
 
-        let movieNetworkProxy = MovieNetworkProxy(authorizationProvider: REST.AccessTokenProvider(accessToken: { "6f83e26e82a37507bf29b27ff511f452" }))
+        let movieNetworkProxy = REST.MovieNetworkProxy(
+            authorizationProvider: { "6f83e26e82a37507bf29b27ff511f452" }()
+        )
 
         movieNetworkProxy.fetchMovies { result in
             do {
