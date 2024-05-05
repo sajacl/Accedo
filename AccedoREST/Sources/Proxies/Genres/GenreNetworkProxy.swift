@@ -6,9 +6,18 @@ private let genreURLPath = "/3/genre/movie/list"
 /// Tag that will be used for naming network operation.
 private let tag = "fetch-genre"
 
+public protocol RESTGenreNetworkProxy {
+    @available(iOS 13.0, *)
+    func fetchGenres() async throws -> Result<GenreAPIResponse, Error>
+
+    func fetchGenres(
+        with completionHandler: @escaping (Result<GenreAPIResponse, Error>) -> Void
+    )
+}
+
 extension REST {
     /// Object responsible for proxy network calls for fetching genres list.
-    public final class GenreNetworkProxy: NetworkProxy {}
+    public final class GenreNetworkProxy: NetworkProxy, RESTGenreNetworkProxy {}
 }
 
 // Swift concurrency version.
