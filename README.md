@@ -1,5 +1,4 @@
-# Accedo
-Accedo tech test
+# Accedo tech test
 
 Hi dear reader,
 Thanks for the exciting challenge,
