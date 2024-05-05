@@ -52,17 +52,17 @@ public final class GenreViewModel: ObservableObject {
 
     private func fetchAndUpdateGenreList() async {
         do {
-            let genres = try await getGenres()
+            let _genres = try await getGenres()
 
-            guard !genres.isEmpty else {
+            guard !_genres.isEmpty else {
                 try await updateGenres()
 
-                let genres = try await getGenres()
-                self.genres = genres
+                let __genres = try await getGenres()
+                genres = __genres
                 return
             }
 
-            self.genres = genres
+            genres = _genres
         } catch {
             self.error = error
         }
@@ -73,7 +73,7 @@ public final class GenreViewModel: ObservableObject {
     }
 
     private func updateGenres() async throws {
-        let fetchResult = try await self.networkProxy.fetchGenres()
+        let fetchResult = try await networkProxy.fetchGenres()
 
         switch fetchResult {
             case let .success(response):
