@@ -1,12 +1,6 @@
 # Accedo
 Accedo tech test
 
-# GithubAPI
-The is a mvp project, that has been crafted for a code challenge.
-
-- [Github][github-url]
-- [Linkedin][linkedin-url]
-
 Hi dear reader,
 Thanks for the exciting challenge,
 I've put around 22 hours on this project, if you don't count deep thinking in the shower about the structure =D
@@ -47,33 +41,45 @@ I've tried to keep it super simple, and extracted reuseable parts.
 5. Utils (Little extension over binding)
 6. Resources (Not much =D)
 
-## Tech Stack
+## Dependency graph
 
-| Module | Structure |
-| ------ | ------ |
-| AppDelegate | AppDelegateCompsotie + AppDelegateFactory |
+```mermaid
+  graph TD;
+    REST-->Logging;
+    MainApp-->REST;
+    MainApp-->UI;
+    MainApp-->DBStore[DB/Store];
+    MainApp-->Logging;
 
+    classDef default fill:#f95,stroke:#333,stroke-width:2px;
+    class REST,UI,DBStore,Logging,MainApp default;
+```
 
 ## Features
 
-1. There is no sharing secrets, since every developer has to create and config their own application and update XCode environment.
+1. There is no sharing secrets, since every developer has to create and config their own application.
 2. Logging system is pretty good, although I tried to keep it super simple.
 3. App supports multi language.
 4. App supports light theme/dark theme.
 5. You can stream app logs and download them after directly from the device.
 6. I took it seriously, so code is really easy to read and to write tests for.
 7. iPad and iPhone is supported.
-8. BEST UI DESIGN in the world \\:D/
+8. It has multiple separate flows.
+9. BEST UI DESIGN in the world \\:D/
 
 TODO:
 1. Improve UI.
 2. Create UML diagram.
-3. Add hands-off functionality.
-4. Expand app functionalities.
+3. Add tests to the main application.
+4. Add hands-off functionality.
+5. Expand app functionalities.
 
 ## License
 
 MIT.
+
+- [Github][github-url]
+- [Linkedin][linkedin-url]
 
    [github-url]: <https://www.github.com/sajacl>
    [linkedin-url]: <https://www.linkedin.com/in/sajacl/>
