@@ -5,10 +5,10 @@ import struct AccedoREST.GenreDecodableModel
 
 protocol GenreRepositoryInterface {
     @DatabaseActor
-    func getMovies() throws -> [Genre]
+    func getGenres() throws -> [Genre]
 
     @DatabaseActor
-    func upsertMovies(_ decodedGenres: [GenreDecodableModel]) throws
+    func upsertGenres(_ decodedGenres: [GenreDecodableModel]) throws
 }
 
 final class GenreRepository: GenreRepositoryInterface {
@@ -16,7 +16,7 @@ final class GenreRepository: GenreRepositoryInterface {
     private let cache: Cache<Int, Genre> = Cache(name: "GenreCache")
 
     @DatabaseActor
-    func getMovies() throws -> [Genre] {
+    func getGenres() throws -> [Genre] {
         try cache.allValues()
     }
 
@@ -24,7 +24,7 @@ final class GenreRepository: GenreRepositoryInterface {
     /// - Warning: This method has small overhead (O(n) * 2, since for code clarity it uses two iteration,
     /// One for decoding and one for adding/updating in cache.
     @DatabaseActor
-    func upsertMovies(_ decodedGenres: [GenreDecodableModel]) throws {
+    func upsertGenres(_ decodedGenres: [GenreDecodableModel]) throws {
         let mappedGenres = decodedGenres.map(Genre.init(from:))
 
         mappedGenres.forEach { genre in
