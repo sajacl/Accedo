@@ -6,9 +6,15 @@ private let movieURLPath = "/3/discover/movie"
 /// Tag that will be used for naming network operation.
 private let tag = "fetch-movies"
 
-public final class MovieNetworkProxy: NetworkProxy {
-    @available(iOS 13.0, *)
-    public func fetchMovies() async throws -> Result<MoviesAPIResponse, Error> {
+extension REST {
+    /// Object responsible for proxy network calls for fetching movies list.
+    public final class MovieNetworkProxy: NetworkProxy {}
+}
+
+// Swift concurrency version.
+@available(iOS 13.0, *)
+extension REST.MovieNetworkProxy {
+    public func fetchMovies() async throws -> Result<MoviesAPIResponse, Swift.Error> {
         let requestHandler = REST.AnyRequestHandler { endpoint in
             let requestFactory = REST.RequestFactory.default(
                 with: self.authorizationProvider,
@@ -34,9 +40,12 @@ public final class MovieNetworkProxy: NetworkProxy {
 
         return try await networkOperation.start()
     }
+}
 
+// Closure version.
+extension REST.MovieNetworkProxy {
     public func fetchMovies(
-        with completionHandler: @escaping (Result<MoviesAPIResponse, Error>) -> Void
+        with completionHandler: @escaping (Result<MoviesAPIResponse, Swift.Error>) -> Void
     ) {
         let requestHandler = REST.AnyRequestHandler { endpoint in
             let requestFactory = REST.RequestFactory.default(
