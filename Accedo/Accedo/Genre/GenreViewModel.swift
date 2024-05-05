@@ -51,7 +51,7 @@ public final class GenreViewModel: ObservableObject {
     }
 
     private func getGenres() async throws -> [Genre] {
-        try await repository.getMovies()
+        try await repository.getGenres()
     }
 
     private func updateGenres() async throws {
@@ -59,7 +59,7 @@ public final class GenreViewModel: ObservableObject {
 
         switch fetchResult {
             case let .success(response):
-                try await repository.upsertMovies(response.genres)
+                try await repository.upsertGenres(response.genres)
 
             case let .failure(error):
                 throw error
