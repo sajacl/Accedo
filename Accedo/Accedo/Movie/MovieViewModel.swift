@@ -45,7 +45,7 @@ public final class MovieViewModel: ObservableObject {
 
             await fetchAndUpdateMovieList()
 
-            state = .wholeViewLoading
+            state = .list
         }
     }
 
