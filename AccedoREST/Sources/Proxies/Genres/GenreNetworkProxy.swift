@@ -12,7 +12,7 @@ public protocol RESTGenreNetworkProxy {
 
     func fetchGenres(
         with completionHandler: @escaping (Result<GenreAPIResponse, Error>) -> Void
-    )
+    ) -> Cancellable
 }
 
 extension REST {
@@ -55,7 +55,7 @@ extension REST.GenreNetworkProxy {
 extension REST.GenreNetworkProxy {
     public func fetchGenres(
         with completionHandler: @escaping (Result<GenreAPIResponse, Error>) -> Void
-    ) {
+    ) -> Cancellable {
         let requestHandler = REST.AnyRequestHandler { endpoint in
             let requestFactory = REST.RequestFactory.default(
                 with: self.authorizationProvider,
@@ -81,5 +81,7 @@ extension REST.GenreNetworkProxy {
         )
 
         networkOperationQueue.addOperation(fetchGenresNetworkOperation)
+
+        return fetchGenresNetworkOperation
     }
 }
