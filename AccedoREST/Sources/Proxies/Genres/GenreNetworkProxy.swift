@@ -14,7 +14,7 @@ extension REST {
 // Swift concurrency version.
 @available(iOS 13.0, *)
 extension REST.GenreNetworkProxy {
-    public func fetchGenres() async throws -> Result<GenresDecodableModel, Error> {
+    public func fetchGenres() async throws -> Result<GenreAPIResponse, Error> {
         let requestHandler = REST.AnyRequestHandler { endpoint in
             let requestFactory = REST.RequestFactory.default(
                 with: self.authorizationProvider,
@@ -28,7 +28,7 @@ extension REST.GenreNetworkProxy {
         }
 
         let responseHandler = REST.defaultResponseHandler(
-            decoding: GenresDecodableModel.self,
+            decoding: GenreAPIResponse.self,
             with: REST.Coding.makeJSONDecoder()
         )
 
@@ -45,7 +45,7 @@ extension REST.GenreNetworkProxy {
 // Closure version.
 extension REST.GenreNetworkProxy {
     public func fetchGenres(
-        with completionHandler: @escaping (Result<GenresDecodableModel, Error>) -> Void
+        with completionHandler: @escaping (Result<GenreAPIResponse, Error>) -> Void
     ) {
         let requestHandler = REST.AnyRequestHandler { endpoint in
             let requestFactory = REST.RequestFactory.default(
@@ -60,7 +60,7 @@ extension REST.GenreNetworkProxy {
         }
 
         let responseHandler = REST.defaultResponseHandler(
-            decoding: GenresDecodableModel.self,
+            decoding: GenreAPIResponse.self,
             with: REST.Coding.makeJSONDecoder()
         )
 
