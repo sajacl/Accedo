@@ -16,19 +16,19 @@ public final class MovieViewModel: ObservableObject {
         case loadingMoreItems(page: UInt16)
     }
     
-    /// <#Description#>
+    /// Object responsible for proxy network calls for fetching genres list.
     private let networkProxy: any RESTMovieNetworkProxy
     
-    /// <#Description#>
+    /// Object responsible for handle interactions between database and application.
     private let repository: MovieRepositoryInterface
     
-    /// <#Description#>
+    /// List of movies.
     @Published private(set) var movies: [Movie] = []
     
-    /// <#Description#>
+    /// Current state of module.
     @Published private(set) var state: State = .wholeViewLoading
     
-    /// <#Description#>
+    /// Optional error that will be consumed to show an `Alert` to user.
     @Published var error: (Error)?
 
     init(
