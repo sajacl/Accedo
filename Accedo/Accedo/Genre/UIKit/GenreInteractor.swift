@@ -20,7 +20,7 @@ final class GenreInteractor {
         requestToken?.cancel()
     }
 
-    private func fetchAndUpdateGenreList(
+    func fetchAndUpdateGenreList(
         completionHandler: @escaping (Result<[Genre], Error>) -> Void
     ) {
         getGenres { [weak self] fetchResult in
