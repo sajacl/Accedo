@@ -1,7 +1,8 @@
 import SwiftUI
 import AccedoUI
 
-@main
+// Uncomment next line if you want to visit `SwiftUI` representation.
+//@main
 struct AccedoApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     

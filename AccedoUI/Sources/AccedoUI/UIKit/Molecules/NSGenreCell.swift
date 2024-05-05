@@ -1,8 +1,6 @@
 import Foundation
 import UIKit
 
-private let identifier = "CustomCollectionViewCell"
-
 extension NS {
     public final class CollectionViewCell: UICollectionViewCell {
         private lazy var imageView: NS.IconAtom = {

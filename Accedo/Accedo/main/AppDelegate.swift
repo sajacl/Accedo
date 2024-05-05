@@ -3,6 +3,8 @@ import UIKit
 
 typealias AppDelegateType = UIResponder & UIApplicationDelegate
 
+// Uncomment next line if you want to visit `UIKit` representation.
+@UIApplicationMain
 final class AppDelegate: AppDelegateType {
     let appDelegate = AppDelegateFactory.default()
 
