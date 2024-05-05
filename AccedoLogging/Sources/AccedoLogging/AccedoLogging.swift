@@ -9,13 +9,13 @@ import Foundation
  It will be a simple extension on OSLog logger for achieving a decoupled log system.
  */
 
-/// <#Description#>
+/// Tag that will be used for categorizing network logs.
 private let networkCategory = "Network"
 
-/// <#Description#>
+/// Tag that will be used for categorizing database logs.
 private let databaseCategory = "Database"
 
-/// <#Description#>
+/// Tag that will be used for categorizing view logs.
 private let viewCategory = "View"
 
 public protocol Logging {
