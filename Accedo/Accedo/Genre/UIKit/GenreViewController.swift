@@ -67,6 +67,12 @@ final class GenreViewController: UIViewController,
         )
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        presenter.viewDidAppear()
+    }
+
     @objc 
     private func toggleLayout() {
         isGridViewActive.toggle()
