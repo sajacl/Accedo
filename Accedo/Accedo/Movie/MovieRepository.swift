@@ -61,4 +61,4 @@ public struct Movie: Hashable {
         voteAverage = decodableModel.voteAverage
         voteCount = decodableModel.voteCount
     }
-    }
+}
