@@ -1,4 +1,5 @@
 import SwiftUI
+import AccedoUI
 
 @main
 struct AccedoApp: App {
@@ -6,7 +7,7 @@ struct AccedoApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            GenreWireframe.create(with: ProcessInfo.processInfo.environment["api_key"])
         }
     }
 }
