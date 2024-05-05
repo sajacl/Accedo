@@ -47,8 +47,8 @@ extension NS {
             titleLabel.frame = CGRect(x: 5, y: frame.size.height - 45, width: frame.size.width - 10, height: 40)
         }
 
-        public func configure(title: String, imageURL: URL?) {
-            titleLabel.text = title
+        public func configure(name: String, imageURL: URL?) {
+            titleLabel.text = name
         }
     }
 }
