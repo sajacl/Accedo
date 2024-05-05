@@ -17,7 +17,24 @@ public protocol RESTMovieNetworkProxy {
 
 extension REST {
     /// Object responsible for proxy network calls for fetching movies list.
-    public final class MovieNetworkProxy: NetworkProxy, RESTMovieNetworkProxy {}
+    public final class MovieNetworkProxy: NetworkProxy, RESTMovieNetworkProxy {
+        private let genreId: Int
+
+        public init(
+            genreId: Int,
+            authorizationProvider: @autoclosure @escaping () throws -> REST.Authorization
+        ) {
+            self.genreId = genreId
+
+            super.init(authorizationProvider: try authorizationProvider())
+        }
+
+        public init(genreId: Int, authorizationProvider: RESTAuthorizationProvider) {
+            self.genreId = genreId
+
+            super.init(authorizationProvider: authorizationProvider)
+        }
+    }
 }
 
 // Swift concurrency version.
