@@ -7,10 +7,12 @@ private let cellIdentifier = "CustomCollectionViewCell"
 final class GenreViewController: UIViewController,
                                  UICollectionViewDelegate,
                                  UICollectionViewDataSource {
+    /// Boolean flag that will be consumed to change collection view's layout.
     private var isGridViewActive = true
 
     var presenter: GenrePresenter!
-
+    
+    /// List of genres.
     private var genres: [Genre] = []
 
     private lazy var collectionView: UICollectionView = {
