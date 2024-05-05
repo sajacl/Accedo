@@ -43,7 +43,7 @@ extension REST {
             do {
                 let request = try requestHandler.createURLRequest(host: host)
 
-                return await didReceiveURLRequest(request, host: host)
+                return try await didReceiveURLRequest(request, host: host)
             } catch {
                 let wrappedError = Error.createURLRequest(error)
 
@@ -60,7 +60,9 @@ extension REST {
         private func didReceiveURLRequest(
             _ restRequest: REST.Request,
             host: AnyHost
-        ) async -> Result<Success, Swift.Error> {
+        ) async throws -> Result<Success, Swift.Error> {
+            try Task.checkCancellation()
+
             logger.debug(
                 metadata: taskIdentifier,
                 message: "Send request to \(restRequest.pathTemplate.templateString)"
@@ -151,14 +153,6 @@ extension REST {
                     return .failure(
                         REST.Error.unhandledResponse(response.statusCode, serverErrorResponse)
                     )
-            }
-        }
-
-        private func wrapRequestError(_ error: Swift.Error) -> REST.Error {
-            if let error = error as? URLError {
-                return .network(error)
-            } else {
-                return .unhandledResponse(-1, nil)
             }
         }
     }
