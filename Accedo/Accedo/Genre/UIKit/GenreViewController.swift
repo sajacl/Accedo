@@ -6,7 +6,8 @@ private let cellIdentifier = "CustomCollectionViewCell"
 
 final class GenreViewController: UIViewController,
                                  UICollectionViewDelegate,
-                                 UICollectionViewDataSource {
+                                 UICollectionViewDataSource,
+                                 UICollectionViewDelegateFlowLayout {
     /// Boolean flag that will be consumed to change collection view's layout.
     private var isGridViewActive = true
 
@@ -77,11 +78,18 @@ final class GenreViewController: UIViewController,
 
     @objc 
     private func toggleLayout() {
-        isGridViewActive.toggle()
+        UIView.transition(
+            with: collectionView,
+            duration: 0.5,
+            options: .transitionCrossDissolve,
+            animations: {
+                self.isGridViewActive.toggle()
 
-        collectionView.collectionViewLayout.invalidateLayout()
+                self.collectionView.collectionViewLayout.invalidateLayout()
 
-        collectionView.reloadData()
+                self.collectionView.reloadData()
+            }
+        )
     }
 
     func stateUpdated(_ newState: GenrePresenter.State) {
@@ -100,6 +108,8 @@ final class GenreViewController: UIViewController,
                     self.loadingView.isHidden = true
 
                     self.genres = genres
+
+                    self.collectionView.reloadData()
             }
         }
     }
@@ -149,7 +159,7 @@ extension GenreViewController {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         if isGridViewActive {
-            let width = (view.frame.size.width/3) - 16
+            let width = (view.frame.size.width / 3) - 16
 
             return CGSize(width: width, height: width + 40)
         } else {
