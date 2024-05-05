@@ -14,7 +14,7 @@ protocol MovieRepositoryInterface {
     func upsertMovies(_ decodedMovies: [MovieDecodableModel]) throws
 }
 
-final class MovieRepository {
+final class MovieRepository: MovieRepositoryInterface {
     private let cache: Cache<Int, Movie>
 
     init() {
@@ -57,6 +57,10 @@ final class MovieRepository {
 
         mappedMovies.forEach { movie in
             cache.upsert(movie, forKey: movie.id)
+        }
+
+        Task.detached(priority: .background) { [weak self] in
+            try self?.cache.saveToDisk()
         }
     }
 }
