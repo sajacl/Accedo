@@ -77,6 +77,12 @@ public final class Cache<Key: Hashable, Value> {
         return entry.value
     }
 
+    public func allValues() throws -> [Value] {
+        try keyTracker.keys.map { key in
+            try value(forKey: key)
+        }
+    }
+
     public func removeValue(forKey key: Key) {
         _cache.removeObject(forKey: WrappedKey(key))
     }
