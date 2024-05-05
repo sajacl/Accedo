@@ -83,4 +83,11 @@ public final class GenreViewModel: ObservableObject {
                 throw error
         }
     }
+
+    func createGenreDetail(for genre: Genre) -> some View {
+        MovieWireframe.create(
+            with: ProcessInfo.processInfo.environment["api_key"],
+            for: genre
+        )
+    }
 }
