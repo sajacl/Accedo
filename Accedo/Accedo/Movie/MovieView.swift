@@ -60,7 +60,7 @@ struct MovieView: View {
     }
 
     private var loadingView: some View {
-        LoadingView()
+        SU.LoadingView()
     }
 
     @ViewBuilder
@@ -97,10 +97,3 @@ struct MovieView: View {
         }
     }
 }
-
-private struct LoadingView: View {
-    var body: some View {
-        ProgressView()
-    }
-}
-

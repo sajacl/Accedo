@@ -53,7 +53,7 @@ struct GenreView: View {
     }
 
     private var loadingView: some View {
-        LoadingView()
+        SU.LoadingView()
     }
 
     @ViewBuilder
@@ -88,11 +88,5 @@ struct GenreView: View {
                 }
             }
         }
-    }
-}
-
-private struct LoadingView: View {
-    var body: some View {
-        ProgressView()
     }
 }

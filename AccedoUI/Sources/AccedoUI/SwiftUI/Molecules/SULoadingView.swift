@@ -5,6 +5,8 @@ import UIKit
 @available(iOS 13.0, *)
 extension SU {
     public struct LoadingView: View {
+        public init() {}
+        
         public var body: some View {
             if #available(iOS 14.0, *) {
                 ProgressView()
