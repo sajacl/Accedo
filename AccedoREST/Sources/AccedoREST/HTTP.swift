@@ -34,7 +34,7 @@ struct HTTPStatus: RawRepresentable, Equatable {
 
 /// HTTP headers
 enum HTTPHeader {
-    static let authorization = "Authorization"
     static let contentType = "Content-Type"
-    static let apiKey = "api-key"
+    static let apiKey = "api_key"
+    static let language = "language"
 }
