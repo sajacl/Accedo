@@ -8,19 +8,22 @@ The is a mvp project, that has been crafted for a code challenge.
 - [Linkedin][linkedin-url]
 
 Hi dear reader,
-Thanks for the exciting challenge!
+Thanks for the exciting challenge,
+I've put around 22 hours on this project, if you don't count deep thinking in the shower about the structure =D
+Hope you enjoy reading it as much as I enjoyed when writing it.
 
 ### This challenge will contain specific parts:
 
 Rather than a monolithic application, I've decided to break parts into components,
 These components have their own package.
+(All these libraries are linked staticly to the main project)
 
 1. REST (A light weight bundle that has been crafted for this code challenge from the groundup)
 2. UI (A light weight bundle that contains `SwiftUI` and `NS.UIKit` custom views, I followed atomic design system)
 3. DB/Store (A light weight bundle that contains interaction between main app and db/store inspired by this [article][cache-article-url]
 4. Logging (Super simple logging logic)
 
-### How to run.
+### How to run:
 There some steps to be able to run the application properly:
 1. In order to use this service, you need an api key from themoviedb.
 2. Put your api key inside your scheme environment variables, since this is an MVP, app will notify if you don't put them!
@@ -28,10 +31,9 @@ There some steps to be able to run the application properly:
 2.2. This desicion has a lot of benefits which I can explain if needed :D
 
 ### Project pseudo: 
-
 Project has 5 Main parts:
 
-1. Bootstrap (Contains AppDelegate + boot sequence configurations).
+1. Bootstrap/main (Contains AccedoMain + AppDelegate + boot sequence configurations).
 2. Modules (Genre, Movie)
 I've tried to keep it super simple, and extracted reuseable parts.
 2.1. Genre:
@@ -40,8 +42,10 @@ I've tried to keep it super simple, and extracted reuseable parts.
 2.2. Movie
      This module contains SwiftUI representation only.
      SwiftUI representation module structer is MVVM + Wireframe.
-4. Utils (Little extension over binding)
-5. Resources (Not much =D)
+3. Network that includes Network related parts + proxies.
+4. Database that includes storing objects and retrieving them + repositories.
+5. Utils (Little extension over binding)
+6. Resources (Not much =D)
 
 ## Tech Stack
 
