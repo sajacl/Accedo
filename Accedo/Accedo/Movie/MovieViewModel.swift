@@ -1,6 +1,7 @@
 import Foundation
 import AccedoREST
 
+/// Starting page number.
 private let startPaginationPageNumber: UInt16 = 1
 
 @MainActor
@@ -31,6 +32,8 @@ public final class MovieViewModel: ObservableObject {
     /// Optional error that will be consumed to show an `Alert` to user.
     @Published var error: (Error)?
 
+    private var currentPage: UInt16 = startPaginationPageNumber
+
     init(
         networkProxy: any RESTMovieNetworkProxy,
         repository: any MovieRepositoryInterface
@@ -50,7 +53,19 @@ public final class MovieViewModel: ObservableObject {
     }
 
     func requestForMoreMovies(movieId: Int) {
-        
+        guard let lastMovie = movies.last,
+              lastMovie.id == movieId else {
+            // no-op
+            return
+        }
+
+        Task {
+            state = .loadingMoreItems(page: currentPage)
+
+            try await upsertMovies()
+
+            state = .list
+        }
     }
 
     private func fetchAndUpdateMovieList() async {
@@ -76,11 +91,12 @@ public final class MovieViewModel: ObservableObject {
     }
 
     private func upsertMovies() async throws {
-        let fetchResult = try await self.networkProxy.fetchMovies()
+        let fetchResult = try await self.networkProxy.fetchMovies(for: currentPage)
 
         switch fetchResult {
             case let .success(response):
                 try await repository.upsertMovies(response.movies)
+                currentPage += 1
 
             case let .failure(error):
                 throw error
