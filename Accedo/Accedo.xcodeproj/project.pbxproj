@@ -34,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		341B632A2BE7C0DF006038B1 /* AccedoDB */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AccedoDB; path = ../AccedoDB; sourceTree = "<group>"; };
 		34E882742BE64363002D727F /* Accedo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Accedo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34E882772BE64363002D727F /* AccedoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccedoApp.swift; sourceTree = "<group>"; };
 		34E882792BE64363002D727F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -81,6 +82,7 @@
 				34E882A32BE64683002D727F /* AccedoTypes */,
 				34E882A22BE6462C002D727F /* AccedoREST */,
 				34E882A12BE645A8002D727F /* AccedoUI */,
+				341B632A2BE7C0DF006038B1 /* AccedoDB */,
 				34E882762BE64363002D727F /* Accedo */,
 				34E882872BE64364002D727F /* AccedoTests */,
 				34E882752BE64363002D727F /* Products */,
