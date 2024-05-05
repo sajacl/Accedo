@@ -9,6 +9,8 @@ final class GenreViewController: UIViewController,
                                  UICollectionViewDataSource {
     private var isGridViewActive = true
 
+    var presenter: GenrePresenter!
+
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 100, height: 100)
