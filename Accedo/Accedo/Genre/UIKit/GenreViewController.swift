@@ -11,6 +11,8 @@ final class GenreViewController: UIViewController,
 
     var presenter: GenrePresenter!
 
+    private var genres: [Genre] = []
+
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 100, height: 100)
@@ -32,18 +34,29 @@ final class GenreViewController: UIViewController,
         return collectionView
     }()
 
+    private lazy var loadingView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .large)
+        view.color = .gray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .white
 
         view.addSubview(collectionView)
+        view.addSubview(loadingView)
 
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 8),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            collectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -8)
+            collectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -8),
+
+            loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -54,7 +67,8 @@ final class GenreViewController: UIViewController,
         )
     }
 
-    @objc private func toggleLayout() {
+    @objc 
+    private func toggleLayout() {
         isGridViewActive.toggle()
 
         collectionView.collectionViewLayout.invalidateLayout()
@@ -62,11 +76,47 @@ final class GenreViewController: UIViewController,
         collectionView.reloadData()
     }
 
+    func stateUpdated(_ newState: GenrePresenter.State) {
+        UIView.animate(withDuration: 0.5) {
+            switch newState {
+                case .loading:
+                    self.collectionView.isHidden = true
+                    self.loadingView.isHidden = false
+
+                case .empty:
+                    self.collectionView.isHidden = true
+                    self.loadingView.isHidden = true
+
+                case let .list(genres):
+                    self.collectionView.isHidden = false
+                    self.loadingView.isHidden = true
+
+                    self.genres = genres
+            }
+        }
+    }
+
+    func showErrorAlert(for error: Error) {
+        let alert = UIAlertController(
+            title: "Error",
+            message:error.localizedDescription,
+            preferredStyle: UIAlertController.Style.alert
+        )
+
+        let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil)
+        alert.addAction(okAction)
+
+        present(alert, animated: true)
+    }
+}
+
+// MARK: CollectionView delegate + data source
+extension GenreViewController {
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        return 20 // Arbitrary number of items
+        return genres.count
     }
 
     func collectionView(
@@ -80,7 +130,7 @@ final class GenreViewController: UIViewController,
             fatalError("Unable to dequeue CustomCollectionViewCell")
         }
 
-        cell.configure(title: "Item \(indexPath.row)", imageURL: nil)
+        cell.configure(name: genres[indexPath.item].name, imageURL: nil)
 
         return cell
     }
@@ -92,7 +142,7 @@ final class GenreViewController: UIViewController,
     ) -> CGSize {
         if isGridViewActive {
             let width = (view.frame.size.width/3) - 16
-            
+
             return CGSize(width: width, height: width + 40)
         } else {
             return CGSize(width: view.frame.size.width - 20, height: 100)
