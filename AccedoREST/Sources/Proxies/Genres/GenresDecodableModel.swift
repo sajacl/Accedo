@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - Genres
-public struct GenresDecodableModel: Codable {
+public struct GenreAPIResponse: Codable {
     public let genres: [GenreDecodableModel]
 }
 
