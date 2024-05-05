@@ -4,14 +4,28 @@ import AccedoREST
 
 @MainActor
 public final class GenreViewModel: ObservableObject {
+    /// Light weight state machine.
+    enum State {
+        case loading
+
+        case empty
+
+        case list
+    }
+    
+    /// <#Description#>
     private let networkProxy: any RESTGenreNetworkProxy
-
+    
+    /// <#Description#>
     private let repository: GenreRepositoryInterface
-
+    
+    /// <#Description#>
     @Published private(set) var genres: [Genre] = []
-
-    @Published private(set) var isLoading = false
-
+    
+    /// <#Description#>
+    @Published private(set) var state: State = .loading
+    
+    /// <#Description#>
     @Published var error: (Error)?
 
     init(
@@ -24,11 +38,15 @@ public final class GenreViewModel: ObservableObject {
 
     func viewDidAppear() {
         Task {
-            isLoading = true
+            state = .loading
 
             await fetchAndUpdateGenreList()
 
-            isLoading = false
+            if genres.isEmpty {
+                state = .empty
+            } else {
+                state = .list
+            }
         }
     }
 

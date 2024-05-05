@@ -16,27 +16,49 @@ struct GenreView: View {
     }
 
     var body: some View {
-        listView
+        mainView
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     viewModel.error = URLError(.badURL)
                 }
             }
             .onAppear(perform: viewModel.viewDidAppear)
-            .alert("Error", isPresented: $viewModel.error.isPresented, actions: {
-                viewModel.error.flatMap {
-                    Text($0.localizedDescription)
-                }
-
-                Button(
-                    action: {
-                        viewModel.error = nil
-                    },
-                    label: {
-                        Text("Ok")
+            .alert(
+                "Error",
+                isPresented: $viewModel.error.isPresented,
+                actions: {
+                    viewModel.error.flatMap {
+                        Text($0.localizedDescription)
                     }
-                )
-            })
+
+                    Button(
+                        action: {
+                            viewModel.error = nil
+                        },
+                        label: {
+                            Text("Ok")
+                        }
+                    )
+                }
+            )
+    }
+
+    @ViewBuilder
+    private var mainView: some View {
+        switch viewModel.state {
+            case .loading:
+                loadingView
+
+            case .empty:
+                EmptyView()
+
+            case .list:
+                listView
+        }
+    }
+
+    private var loadingView: some View {
+        LoadingView()
     }
 
     @ViewBuilder
@@ -71,5 +93,11 @@ struct GenreView: View {
                 }
             }
         }
+    }
+}
+
+private struct LoadingView: View {
+    var body: some View {
+        ProgressView()
     }
 }
