@@ -36,6 +36,9 @@ struct GenreView: View {
                     )
                 }
             )
+            .navigationDestination(for: Genre.self) { genre in
+                viewModel.createGenreDetail(for: genre)
+            }
     }
 
     @ViewBuilder
@@ -68,7 +71,7 @@ struct GenreView: View {
     private var listCell: some View {
         List(viewModel.genres) { genre in
             LazyVStack {
-                SU.GenreCell(title: genre.name)
+                createCellView(for: genre)
             }
         }
     }
@@ -77,16 +80,18 @@ struct GenreView: View {
         ScrollView{
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 20) {
                 ForEach(viewModel.genres, id: \.self) { genre in
-                    Button(
-                        action: {
-
-                        },
-                        label: {
-                            SU.GenreCell(title: genre.name)
-                        }
-                    )
+                    createCellView(for: genre)
                 }
             }
         }
+    }
+
+    private func createCellView(for genre: Genre) -> some View {
+        NavigationLink(
+            value: genre,
+            label: {
+                SU.GenreCell(title: genre.name)
+            }
+        )
     }
 }
