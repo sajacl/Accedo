@@ -13,7 +13,7 @@ public protocol RESTMovieNetworkProxy {
     func fetchMovies(
         for page: UInt16,
         with completionHandler: @escaping (Result<MoviesAPIResponse, Swift.Error>) -> Void
-    )
+    ) -> Cancellable
 }
 
 extension REST {
@@ -75,7 +75,7 @@ extension REST.MovieNetworkProxy {
     public func fetchMovies(
         for page: UInt16,
         with completionHandler: @escaping (Result<MoviesAPIResponse, Swift.Error>) -> Void
-    ) {
+    ) -> Cancellable {
         let requestHandler = REST.AnyRequestHandler { endpoint in
             let requestFactory = REST.RequestFactory.default(
                 with: self.authorizationProvider,
@@ -102,5 +102,7 @@ extension REST.MovieNetworkProxy {
         )
 
         networkOperationQueue.addOperation(fetchMoviesNetworkOperation)
+
+        return fetchMoviesNetworkOperation
     }
 }
