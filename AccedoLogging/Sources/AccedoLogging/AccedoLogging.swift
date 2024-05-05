@@ -13,6 +13,9 @@ import Foundation
 private let networkCategory = "Network"
 
 /// <#Description#>
+private let databaseCategory = "Database"
+
+/// <#Description#>
 private let viewCategory = "View"
 
 public protocol Logging {
@@ -32,6 +35,9 @@ extension OSLog {
 
     /// Logger component for logging network interactions.
     public static let networkLogger = Logger(subsystem: subSystem, category: networkCategory)
+
+    /// Logger component for logging view interactions.
+    public static let databaseLogger = Logger(subsystem: subSystem, category: databaseCategory)
 
     /// Logger component for logging view interactions.
     public static let viewLogger = Logger(subsystem: subSystem, category: viewCategory)
@@ -72,6 +78,8 @@ public struct CustomLogger: Logging {
 
     public static let networkLogger = CustomLogger(category: networkCategory)
     
+    public static let databaseLogger = CustomLogger(category: databaseCategory)
+
     public static let viewLogger = CustomLogger(category: viewCategory)
 
     public init(category: String, logger: @escaping (String) -> Void = { print($0) }) {
