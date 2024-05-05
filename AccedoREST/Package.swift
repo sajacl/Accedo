@@ -19,7 +19,8 @@ let package = Package(
             name: "AccedoREST",
             dependencies: [
                 .product(name: "AccedoLogging", package: "AccedoLogging")
-            ]
+            ],
+            path: "Sources"
         ),
         .testTarget(
             name: "AccedoRESTTests",
