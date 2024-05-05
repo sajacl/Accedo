@@ -14,9 +14,11 @@ final class GenrePresenter {
     private unowned let view: GenreViewController
 
     private let interactor: GenreInteractor
-
+    
+    /// Internal synchronisation queue.
     private let internalQueue = DispatchQueue(label: "GenrePresenter.InternalQueue")
-
+    
+    /// Current state of module.
     private var _state: State = .loading
     private var state: State {
         get {
