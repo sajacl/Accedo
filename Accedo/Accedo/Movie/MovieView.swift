@@ -80,7 +80,7 @@ struct MovieView: View {
     private var listCell: some View {
         List(viewModel.movies) { movie in
             LazyVStack {
-                SU.MovieCell(name: movie.title, imageURL: nil)
+                createCellView(for: movie)
             }
         }
     }
@@ -89,16 +89,16 @@ struct MovieView: View {
         ScrollView{
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 20) {
                 ForEach(viewModel.movies, id: \.self) { movie in
-                    Button(
-                        action: {
-
-                        },
-                        label: {
-                            SU.GenreCell(title: movie.title)
-                        }
-                    )
+                    createCellView(for: movie)
                 }
             }
         }
+    }
+
+    private func createCellView(for movie: Movie) -> some View {
+        SU.MovieCell(name: movie.title, imageURL: nil)
+            .onAppear {
+                viewModel.requestForMoreMovies(movieId: movie.id)
+            }
     }
 }
