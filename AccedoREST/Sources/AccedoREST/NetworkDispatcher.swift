@@ -8,7 +8,7 @@ extension REST {
         private let requestHandler: RESTRequestHandler
         private let responseHandler: AnyResponseHandler<Success>
 
-        private let logger: Logging
+        private let logger: any Logging
 
         private let _taskIdentifier: String
 
