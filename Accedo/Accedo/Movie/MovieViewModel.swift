@@ -95,6 +95,10 @@ public final class MovieViewModel: ObservableObject {
 
         switch fetchResult {
             case let .success(response):
+                guard response.page != currentPage else {
+                    return
+                }
+                
                 try await repository.upsertMovies(response.movies)
                 currentPage += 1
 
