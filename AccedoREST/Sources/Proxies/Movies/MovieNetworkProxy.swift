@@ -8,9 +8,10 @@ private let tag = "fetch-movies"
 
 public protocol RESTMovieNetworkProxy {
     @available(iOS 13.0, *)
-    func fetchMovies() async throws -> Result<MoviesAPIResponse, Error>
+    func fetchMovies(for page: UInt16) async throws -> Result<MoviesAPIResponse, Error>
 
     func fetchMovies(
+        for page: UInt16,
         with completionHandler: @escaping (Result<MoviesAPIResponse, Swift.Error>) -> Void
     )
 }
@@ -40,7 +41,7 @@ extension REST {
 // Swift concurrency version.
 @available(iOS 13.0, *)
 extension REST.MovieNetworkProxy {
-    public func fetchMovies() async throws -> Result<MoviesAPIResponse, Swift.Error> {
+    public func fetchMovies(for page: UInt16) async throws -> Result<MoviesAPIResponse, Swift.Error> {
         let requestHandler = REST.AnyRequestHandler { endpoint in
             let requestFactory = REST.RequestFactory.default(
                 with: self.authorizationProvider,
@@ -49,7 +50,8 @@ extension REST.MovieNetworkProxy {
 
             return try requestFactory.createRequest(
                 for: .get,
-                pathTemplate: REST.URLPathTemplate(stringLiteral: movieURLPath)
+                pathTemplate: REST.URLPathTemplate(stringLiteral: movieURLPath),
+                additionalQueryItems: [URLQueryItem(name: "page", value: "\(page)")]
             )
         }
 
@@ -71,6 +73,7 @@ extension REST.MovieNetworkProxy {
 // Closure version.
 extension REST.MovieNetworkProxy {
     public func fetchMovies(
+        for page: UInt16,
         with completionHandler: @escaping (Result<MoviesAPIResponse, Swift.Error>) -> Void
     ) {
         let requestHandler = REST.AnyRequestHandler { endpoint in
@@ -81,7 +84,8 @@ extension REST.MovieNetworkProxy {
 
             return try requestFactory.createRequest(
                 for: .get,
-                pathTemplate: REST.URLPathTemplate(stringLiteral: movieURLPath)
+                pathTemplate: REST.URLPathTemplate(stringLiteral: movieURLPath),
+                additionalQueryItems: [URLQueryItem(name: "page", value: "\(page)")]
             )
         }
 
