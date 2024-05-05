@@ -49,6 +49,10 @@ public final class MovieViewModel: ObservableObject {
         }
     }
 
+    func requestForMoreMovies(movieId: Int) {
+        
+    }
+
     private func fetchAndUpdateMovieList() async {
         do {
             let movies = try await getMovies()
