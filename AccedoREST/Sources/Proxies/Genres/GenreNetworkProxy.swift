@@ -53,7 +53,7 @@ public final class GenreNetworkProxy {
     }
 
     public func fetchGenres(
-        completionHandler: @escaping (Result<GenresDecodableModel, Error>) -> Void
+        with completionHandler: @escaping (Result<GenresDecodableModel, Error>) -> Void
     ) {
         let requestHandler = REST.AnyRequestHandler { endpoint in
             let requestFactory = REST.RequestFactory.default(
@@ -63,8 +63,7 @@ public final class GenreNetworkProxy {
 
             return try requestFactory.createRequest(
                 for: .get,
-                pathTemplate: "/3/genre/movie/list",
-                additionalQueryItems: [URLQueryItem(name: "query", value: "Action")]
+                pathTemplate: REST.URLPathTemplate(stringLiteral: genreURLPath)
             )
         }
 
@@ -73,13 +72,13 @@ public final class GenreNetworkProxy {
             with: REST.Coding.makeJSONDecoder()
         )
 
-        let fetchGenreNetworkOperation = REST.NetworkOperationDispatcher(
-            name: "hand-shake-test",
+        let fetchGenresNetworkOperation = REST.NetworkOperationDispatcher(
+            name: tag + "-closure",
             requestHandler: requestHandler,
             responseHandler: responseHandler,
             resultCompletionHandler: completionHandler
         )
 
-        networkOperationQueue.addOperation(fetchGenreNetworkOperation)
+        networkOperationQueue.addOperation(fetchGenresNetworkOperation)
     }
 }
