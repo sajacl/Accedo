@@ -8,7 +8,7 @@ final class GenrePresenter {
 
         case empty
 
-        case list
+        case list(genres: [Genre])
     }
 
     private unowned let view: GenreViewController
@@ -38,6 +38,31 @@ final class GenrePresenter {
     }
 
     func viewDidAppear() {
+        updateState(.loading)
 
+        interactor.fetchAndUpdateGenreList { [weak self] result in
+            guard let self else {
+                // no-op
+                return
+            }
+
+            switch result {
+                case let .success(genres):
+                    if genres.isEmpty {
+                        updateState(.empty)
+                    } else {
+                        updateState(.list(genres: genres))
+                    }
+
+                case let .failure(error):
+                    self.view.showErrorAlert(for: error)
+            }
+        }
+    }
+
+    private func updateState(_ newState: State) {
+        state = newState
+
+        view.stateUpdated(state)
     }
 }
