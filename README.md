@@ -63,11 +63,11 @@ I've tried to keep it super simple, and extracted reuseable parts.
 4. App supports light theme/dark theme.
 5. You can stream app logs and download them after directly from the device.
 6. I took it seriously, so code is really easy to read and to write tests for.
-7. iPad and iPhone is supported.
+7. iPad and iPhone is supported and you can dynamically change layouts.
 8. It has multiple separate flows.
 9. BEST UI DESIGN in the world \\:D/
 
-TODO:
+## TODO:
 1. Improve UI.
 2. Create UML diagram.
 3. Add tests to the main application.
@@ -77,6 +77,20 @@ TODO:
 ## License
 
 MIT.
+
+## Screenshots
+
+### iPad
+
+<img src=https://github.com/sajacl/Accedo/assets/16305174/cbb10403-7aaa-4a1d-86bd-48e7914e4e51 width="400" height="500" />
+<img src=https://github.com/sajacl/Accedo/assets/16305174/c2b7972d-9efd-49c3-9a64-7f7923e134ee width="400" height="500" />
+
+### iPhone
+
+<img src=https://github.com/sajacl/Accedo/assets/16305174/527b101c-f8c8-4d60-adc3-4e656c43d5c2 width="220" height="400" />
+<img src=https://github.com/sajacl/Accedo/assets/16305174/3cb3444b-606e-422c-8ce0-34ef5c9438aa width="220" height="400" />
+
+# Info
 
 - [Github][github-url]
 - [Linkedin][linkedin-url]
