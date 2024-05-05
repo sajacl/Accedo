@@ -4,17 +4,20 @@ import AccedoREST
 
 @MainActor
 public final class GenreViewModel: ObservableObject {
-    private let networkProxy: REST.GenreNetworkProxy
+    private let networkProxy: any RESTGenreNetworkProxy
 
-    private let databaseRepository: GenreRepository
+    private let repository: GenreRepositoryInterface
 
-    @Published private(set) var genres: [GenreRepository.Genre] = []
+    @Published private(set) var genres: [Genre] = []
 
     @Published private(set) var isLoading = false
 
-    init(authorization: REST.Authorization) {
-        self.networkProxy = REST.GenreNetworkProxy(authorizationProvider: authorization)
-        self.databaseRepository = GenreRepository()
+    init(
+        networkProxy: any RESTGenreNetworkProxy,
+        repository: any GenreRepositoryInterface
+    ) {
+        self.networkProxy = networkProxy
+        self.repository = repository
     }
 
     func viewDidAppear() {
@@ -45,8 +48,8 @@ public final class GenreViewModel: ObservableObject {
         }
     }
 
-    private func getGenres() async throws -> [GenreRepository.Genre] {
-        try await databaseRepository.getMovies()
+    private func getGenres() async throws -> [Genre] {
+        try await repository.getMovies()
     }
 
     private func updateGenres() async throws {
@@ -54,7 +57,7 @@ public final class GenreViewModel: ObservableObject {
 
         switch fetchResult {
             case let .success(response):
-                try await databaseRepository.upsertMovies(response.genres)
+                try await repository.upsertMovies(response.genres)
 
             case let .failure(error):
                 throw error
