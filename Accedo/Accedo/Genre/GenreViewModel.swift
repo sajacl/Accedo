@@ -13,19 +13,19 @@ public final class GenreViewModel: ObservableObject {
         case list
     }
     
-    /// <#Description#>
+    /// Object responsible for proxy network calls for fetching genres list.
     private let networkProxy: any RESTGenreNetworkProxy
     
-    /// <#Description#>
+    /// Object responsible for handle interactions between database and application.
     private let repository: GenreRepositoryInterface
     
-    /// <#Description#>
+    /// List of genres.
     @Published private(set) var genres: [Genre] = []
     
-    /// <#Description#>
+    /// Current state of module.
     @Published private(set) var state: State = .loading
     
-    /// <#Description#>
+    /// Optional error that will be consumed to show an `Alert` to user.
     @Published var error: (Error)?
 
     init(
