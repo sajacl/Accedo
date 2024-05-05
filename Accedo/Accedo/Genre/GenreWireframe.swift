@@ -48,3 +48,29 @@ enum GenreWireframe {
         return view
     }
 }
+
+private struct UIGenreViewController: UIViewControllerRepresentable {
+    let authorizationProvider: () throws -> REST.Authorization?
+
+    func makeUIViewController(context: Context) -> some UIViewController {
+        guard let authorization = try? authorizationProvider() else {
+            fatalError("Please configure your api key, you can find how in README")
+        }
+
+        let networkProxy = REST.GenreNetworkProxy(authorizationProvider: authorization)
+
+        let repository = GenreRepository()
+
+        let interactor = GenreInteractor(networkProxy: networkProxy, repository: repository)
+
+        let view = GenreViewController()
+
+        let presenter = GenrePresenter(view: view, interactor: interactor)
+
+        view.presenter = presenter
+
+        return UINavigationController(rootViewController: view)
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
+}
