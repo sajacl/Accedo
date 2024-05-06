@@ -50,7 +50,7 @@ struct MovieView: View {
                 loadingView
 
             case .empty:
-                EmptyView()
+                emptyView
 
             case .list:
                 listView
@@ -66,6 +66,10 @@ struct MovieView: View {
 
     private var loadingView: some View {
         SU.LoadingView()
+    }
+
+    private var emptyView: some View {
+        SU.EmptyView()
     }
 
     @ViewBuilder

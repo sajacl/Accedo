@@ -20,6 +20,14 @@ extension SU {
             body = Text(_text)
         }
 
+        /// Initializes a `TextAtom` with a localization key.
+        /// Used for dynamic texts.
+        /// - Parameters:
+        ///   - key: The localization key for the text to be displayed.
+        init(_ _text: LocalizedStringKey) {
+            body = Text(_text)
+        }
+
         /// The `Text` view to be displayed.
         let body: Text
     }
