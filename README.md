@@ -6,7 +6,6 @@ I've put around 22 hours on this project, if you don't count deep thinking in th
 Hope you enjoy reading it as much as I enjoyed when writing it.
 
 ### This challenge will contain specific parts:
-
 Rather than a monolithic application, I've decided to break parts into components,
 These components have their own package.
 (All these libraries are linked staticly to the main project)
@@ -41,7 +40,6 @@ I've tried to keep it super simple, and extracted reuseable parts.
 6. Resources (Not much =D)
 
 ## Dependency graph
-
 ```mermaid
   graph TD;
     REST-->Logging;
@@ -55,7 +53,6 @@ I've tried to keep it super simple, and extracted reuseable parts.
 ```
 
 ## Features
-
 1. There is no sharing secrets, since every developer has to create and config their own application.
 2. Logging system is pretty good, although I tried to keep it super simple.
 3. App supports multi language.
@@ -65,6 +62,11 @@ I've tried to keep it super simple, and extracted reuseable parts.
 7. iPad and iPhone is supported and you can dynamically change layouts.
 8. It has multiple separate flows.
 9. BEST UI DESIGN in the world \\:D/
+
+# Challenge desicions/information
+I've decided to not to add any prefetch logics, since the movie api was super simple, contained only primitive data (String, Bool, etc...)
+On the assignment was said to use lastest Swift version, but I've intertwined some parts with lower Swift version to flex >:D
+I've tried to create a scalable project, so in some parts I ignored the MVP purpose.
 
 ## TODO:
 1. Improve UI.
