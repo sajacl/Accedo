@@ -64,9 +64,9 @@ I've tried to keep it super simple, and extracted reuseable parts.
 9. BEST UI DESIGN in the world \\:D/
 
 # Challenge desicions/information
-I've decided to not to add any prefetch logics, since the movie api was super simple, contained only primitive data (String, Bool, etc...)
-On the assignment was said to use lastest Swift version, but I've intertwined some parts with lower Swift version to flex >:D
-I've tried to create a scalable project, so in some parts I ignored the MVP purpose.
+- I've decided to not to add any prefetch logics, since the movie api was super simple, contained only primitive data (String, Bool, etc...)
+- On the assignment was said to use lastest Swift version, but I've intertwined some parts with lower Swift version to flex >:D
+- I've tried to create a scalable project, so in some parts I ignored the MVP purpose.
 
 ## TODO:
 1. Improve UI.
