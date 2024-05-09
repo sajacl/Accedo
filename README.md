@@ -67,6 +67,8 @@ I've tried to keep it super simple, and extracted reuseable parts.
 - I've decided to not to add any prefetch logics, since the movie api was super simple, contained only primitive data (String, Bool, etc...)
 - On the assignment was said to use lastest Swift version, but I've intertwined some parts with lower Swift version to flex >:D
 - I've tried to create a scalable project, so in some parts I ignored the MVP purpose.
+- I decided to not use any exta navigation/coordination logic.
+- And for the sake of 22 hours, I certainly did not chose to use any development methodology like TDD or DDD, you didn't expecting some one to do for a test, did you? :D
 
 ## TODO:
 1. Improve UI.
